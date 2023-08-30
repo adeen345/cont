@@ -1,0 +1,50 @@
+JEST:
+testing framework
+
+function ConcatStrings(a,b){
+	return a+b
+}
+
+expect(ConcatStrings('abc','def').toBe('abcdef'))
+
+You need to write ccode so that it passes a test. 
+Refactoring is the process of rewriting better code without changing functionality
+
+Red green refactor cycle is when some tests fail(Red) and you refactor your code to pass those tess. THis 
+is part of test driven  development
+
+E2E testing: Interact with a website like an end user.
+WebdriverJS, Protractor,Cypress
+
+Integration testing: how parts of system interact with each other. React-testing-library, and enzyme
+
+Unit testing; testing the smallest units of source code in isolation
+
+Mocking: Separating code from related dependencies during testing.
+Snapshot testing is used by dev to verify that there are no regressions in the dom after some changes to code
+base are made.
+
+
+npm install --save-dev jest
+
+in the "test" script write "jest"
+"test":"jest"
+
+make a file
+name.test.js //name should be same as the file to be tested. and module.exports should be done in file 
+
+const {default:TestRunner}=require("jest-runner")
+cont file=require('./file')
+
+test('returns the number plus 5',()=>{
+	expect(addFive(2).toBe(7))
+})
+test('returns true if statusOfKeys exists'()=>{
+	expect(statusOfKeys).toBeDefined()
+}
+
+TDD:
+streamlined process of writing code that will satisfy some requirements.
+Write a failing test->writing code to pass the test
+
+

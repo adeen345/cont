@@ -1,0 +1,241 @@
+block scope:
+created when variable declared using let or const.
+let color='red'
+if(color=='red'){
+	let color='blue'
+}
+
+Using var keyword:
+var can be used before it is declared
+same var can be redeclared
+can be scoped to a function or globally
+
+Behaviour of let and const is more strict
+cannot be used before declaration
+cannot be redeclared
+scoped to the block
+
+with const value must be assigned on declaration
+
+The Benefits of OOP
+There are many benefits to using the object-oriented programming (OOP) paradigm.
+OOP helps developers to mimic the relationship between objects in the real world. In a way, it helps you to 
+reason about relationships between things in your software, just like you would in the real world. Thus, OOP is 
+an effective approach to come up with solutions in the code you write. OOP also:
+Allows you to write modular code,
+Makes your code more flexible and
+Makes your code reusable.
+
+The four fundamental OOP principles are inheritance, encapsulation, abstraction and polymorphism.
+
+OOP Principles: Inheritance
+Inheritance is one of the foundations of object-oriented programming.
+In essence, it's a very simple concept. It works like this: 
+There is a base class of a "thing".
+There is one or more sub-classes of "things" that inherit the properties of the base class (sometimes also referred 
+to as the "super-class")
+There might be some other sub-sub-classes of "things" that inherit from those classes in point 2.
+Note that each sub-class inherits from its super-class. In turn, a sub-class might also be a super-class, if 
+there are classes inheriting from that sub-class.
+
+To setup the inheritance relation between classes in JavaScript, I can use the extends keyword, as in class B 
+extends A.
+class Animal { /* ...class code here... */ }
+class Bird extends Animal { /* ...class code here... */ }
+class Eagle extends Bird { /* ...class code here... */ }
+In JavaScript classes, super is used to specify what property gets inherited from the super-class in the sub-class.
+To call a super class mrthod in a sub class you do super.methodName()
+
+
+OOP Principles: Encapsulation
+In the simplest terms, encapsulation has to do with making a code implementation "hidden" from other users, in 
+the sense that they don't have to know how my code works in order to "consume" the code.
+
+OOP Principles: Abstraction
+Abstraction is all about writing code in a way that will make it more generalized.
+The concepts of encapsulation and abstraction are often misunderstood because their differences can feel blurry.
+It helps to think of it in the following terms: 
+An abstraction is about extracting the concept of what you're trying to do, rather than dealing with a specific 
+manifestation of that concept. 
+Encapsulation is about you not having access to, or not being concerned with, how some implementation works 
+internally.
+
+OOP Principles: Polymorphism
+Polymorphism is a word derived from the Greek language meaning "multiple forms". An alternative translation 
+might be: "something that can take on many shapes".
+the exact same name of the method can have the exact opposite intent, based on what object it is used for.
+To reiterate, polymorphism is useful because it allows developers to build objects that can have the exact 
+same functionality, namely, functions with the exact same name, which behave exactly the same. However, at the 
+same time, you can override some parts of the shared functionality or even the complete functionality, in some 
+other parts of the OOP structure.
+
+JavaScript has a number of built-in object types, such as:
+Math, Date, Object, Function, Boolean, Symbol, Array, Map, Set, Promise, JSON, etc.
+These objects are sometimes referred to as "native objects".
+Constructor functions, commonly referred to as just "constructors", are special functions that allow us to 
+build instances of these built-in native objects. All the constructors are capitalized.
+To use a constructor function, I must prepend it with the operator new.
+For example, to create a new instance of the Date object, I can run: new Date(). What I get back is the 
+current datetime.
+Note that using constructor functions on all built-in objects is sometimes not the best approach.
+This is especially true for object constructors of primitive types, namely: String, Number, and Boolean.
+A RegExp object is another built-in object in JavaScript. It's used to pattern-match strings using what's 
+known as "Regular Expressions". Regular Expressions exist in many languages, not just JavaScript.
+In JavaScript, you can built an instance of the RegExp constructor using new RegExp. 
+Alternatively, you can use a pattern literal instead of RegExp. Here's an example of using /d/ as a pattern 
+literal, passed-in as an argument to the match method on a string.
+Instead of using Array, Function, and RegExp constructors, you should use their array literal, function 
+literal, and pattern literal varieties: [], () {}, and /()/.
+
+Destructuring:
+let {PI}=Math
+
+Using For of loops with objects:
+Object.keys(car2) //to retrn list of keys
+Object.values(car3) //to return list of values
+const car4 = {
+    speed: 400,
+    color: 'magenta'
+}
+console.log(Object.entries(car4)); //returns both keys and values
+[ ['speed', 400], ['color', 'magenta'] ]
+
+for( key of Object.keys(clothingItem) ) {
+    console.log(keys, ":", clothingItem[key])
+}
+
+For in loops unreliable as they also iterate over not only the objects properties but its prototype too
+
+Template literals:
+using back ticks
+There are several ways in which a template string is different from a regular string.
+let greet = "Hello";
+let place = "World";
+console.log(`${greet} ${place} !`) //display both variables using template literals
+Besides variable interpolation, template strings can span multiple lines.
+Additionally, the reason why it's possible to interpolate variables in template literals 
+is because this syntax actually allows for expression evaluation. 
+
+DATA STRUCCTURES:
+The forEach() method
+Arrays in JavaScript come with a handy method that allows you to loop over each of their members.
+const fruits = ['kiwi','mango','apple','pear'];
+function appendIndex(fruit, index) {
+    console.log(`${index}. ${fruit}`)
+}
+fruits.forEach(appendIndex);
+//0. kiwi
+1. mango
+2. apple
+3. pear//
+
+To explain the syntax, the forEach() method accepts a function that will work on each array item.
+That function's first parameter is the current array item itself, and the second (optional) parameter is the index.
+
+
+The filter() method
+Another very useful method on the array is the filter() method. It filters your arrays based on a specific test.
+Those array items that pass the test are returned.
+const nums = [0,10,20,30,40,50];
+nums.filter( function(num) {
+    return num > 20;
+})
+//returned array: [30,40,50]
+
+The map method
+Finally, there's a very useful map method. 
+
+This method is used to map each array item over to another array's item, based on whatever work is performed inside 
+the function that is passed-in to the map as a parameter. 
+[0,10,20,30,40,50].map( function(num) {
+    return num / 10
+})
+//returns [0,1,2,3,4,5]
+
+
+The example below demonstrates how to use the object data structure to complete a specific task. This task is to 
+convert an object to an array:
+const result = [];
+const drone = {
+    speed: 100,
+    color: 'yellow'
+}
+const droneKeys = Object.keys(drone);
+droneKeys.forEach( function(key) {
+    result.push(key, drone[key])
+})
+console.log(result)//['speed',100,'color','yellow']
+
+MAPS:
+let bestBoxers = new Map();
+bestBoxers.set(1, "The Champion");
+bestBoxers.set(2, "The Runner-up");
+bestBoxers.set(3, "The third place");
+bestBoxers.get(1); // 'The Champion'
+
+SETS:
+const repetitiveFruits = ['apple','pear','apple','pear','plum', 'apple'];
+const uniqueFruits = new Set(repetitiveFruits);
+console.log(uniqueFruits); //{'apple', 'pear', 'plum'}
+
+
+SPREAD OPERATOR:
+fuc1(...arr){}//in function gives an array
+func1(...arr)//each array item passed as a single param. in func call gives comma separated values from list
+
+Rest operator:
+const [first,second,third,...secondVis]=top7
+
+Join arrays, objects using the rest operator:
+Using the spread operator, it's easy to concatenate arrays:
+const fruits = ['apple', 'pear', 'plum']
+const berries = ['blueberry', 'strawberry']
+const fruitsAndBerries = [...fruits, ...berries] // concatenate
+console.log(fruitsAndBerries); // outputs a single array
+
+
+Add new members to arrays without using the push() method
+let veggies = ['onion', 'parsley'];
+veggies = [...veggies, 'carrot', 'beetroot'];
+console.log(veggies);
+
+
+Convert a string to an array using the spread operator
+const greeting = "Hello";
+const arrayOfChars = [...greeting];
+console.log(arrayOfChars); //  ['H', 'e', 'l', 'l', 'o']
+
+Copy either an object or an array into a separate one
+const car1 = {
+    speed: 200,
+    color: 'yellow'
+}
+const car 2 = {...car1}
+
+Arrow Functions:
+param =>{}
+(param,p2,p3,..)=>{}
+
+DOM MANIP:
+const h2=document.createElement('h2')
+h2.innerText="nfenf"
+h2.setAttribute('id','asc')
+document.body.appendChild(h2)
+
+Selectors:
+document.querySelector()//takes a css selector
+document.getElementbyId
+document.getelementsbyclassname
+
+Event Handling:
+target.addEventlistener('click' function(){})
+
+
+To capture user input, you can use the built-in prompt() method, like this:
+let answer = prompt('What is your name?');
+
+JSON to js:
+JSON.parse(jsonStr)//gives backa  js object
+
+js object to JSON:
+JSON.stringify(obj) 

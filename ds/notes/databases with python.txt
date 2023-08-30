@@ -1,0 +1,219 @@
+SQL:
+
+DML:
+
+select * from table where *predicate*
+<> //not equal to in SQL
+where name like R% //string patterns when you dont know actual name. Will give names starting with R
+where year >= 2000 and year<=2010 OR where year between 2000 and 2010
+where country='AU' or country ='br' OR where country in ('AU','BR')
+order by name asc//orders names in ascending order
+group by country //groups all the same countries together
+having count(country)>4 //used to add a condition to group by
+
+select count(*) from tablename
+
+select distinct country from tablename where country=""
+
+select * from tablename limit 5 offset 10 //row 11 to 15
+
+insert into tablename(col1,col2,...) values(val1,val2,....)
+
+update tablename set colname=val where *condition*
+
+delete from tablename where ID in ('A2','A3')
+
+DDL:
+
+create table tablename(
+col1 datatype primary key not null,
+col2 datatype,
+...
+);
+
+alter:
+used to add or remove columns, modify datatypes, or add or remove keys or constraints
+
+alter table tablename 
+	add column colx;
+alter table tablname
+	alter column colname set data type int;
+alter table tablename
+	drop column colname
+
+drop:
+drop tablle tablename
+
+truncate table tablename immediate; //remove data from a table. immediate to process statement immediately
+
+
+Built in db functions:
+most db come wit built in functions which can be included as part of sql statments.
+significantly reduce the amount of data that needs to be retrieved reducing network traffic and use of bandwidth.
+can speed up data processing.
+sum, min , max ,avg, round, length, UCASE,LCASE
+
+date and time fn:
+YEAR(),month(),day(),week() //to extract parts from dates or imestamps
+CURRENT_DATE //returns current date
+
+sub queries:
+some agggregate fn like avg cant be used in where clause so avg is calculate in a sub query
+sub queries can also be used in coumn expressions
+select *,(select acg(sal) from ..) from..
+
+subqueries can be used after from:
+select * from ( select EMP_ID, F_NAME, L_NAME, DEP_ID from EMPLOYEES) AS EMP4ALL;
+
+WORKING WITH MULTIPLE TABLES:
+1-sub queries
+2- implicit joins. select * from table1,table2 where t1.id=t2.id//returns cartesian product
+3-Join perators
+
+USING PYTHON TO ACCESS DB:
+DB_API is used. to connect to sql db.it is the standard api. allows single program to work with multiple kinds
+of databases.
+psycopg2 is used to connect to postgres db.
+pyMongo for mongodb
+MySQL connector for MySQL
+
+connection objects are used to connect to db and manage transactions.
+cursor objects are used to ru db queries.
+
+db api contains a connect cursor for creating a connection object. This object has methods such as cursor method
+which returns a new cursor object. commit method used to commit any pending transaction. rollback method.
+close method. cursor enables traversal over records in a db.
+
+from dbmodule import connect //dbmodule can be sqlite3
+Connection=sqlite3.connect('dbname','username','pswd')
+Cursor=connection.cursor()
+cursor.execute(query)
+Results=cursor.fetchall()
+output_all = cursor_obj.fetchall()
+for row_all in output_all:
+  print(row_all)
+If you want to fetch few rows from the table we use fetchmany(numberofrows) and mention the number how many 
+rows you want to fetch
+output_many = cursor_obj.fetchmany(2) 
+Cursor.close()
+
+for ibm db2 use ibm_db api
+
+TO import database contents into pandas:
+import pandas as pd
+#retrieve the query results into a pandas dataframe
+df = pd.read_sql_query("select * from instructor;", conn) //after connecion is created
+
+To wtite df to db:
+df.to_sql("chicago_socioeconomic_data", con, if_exists='replace', index=False,method="multi")
+
+SQL magic:
+Jupyter notebooks have a concept of Magic commands that can simplify working with Python, and are particularly 
+useful for data analysis. Your notebooks can have two types of magic commands:
+Cell magics: start with a double %% sign and apply to the entire cell
+Line magics: start with a single % (percent) sign and apply to a particular line in a cell
+Their usage is of the format:
+%magicname arguments
+For example if you want to execute the a query to select some data from a table and fetch its results, you can 
+simply enter a command like the following in your Jupyter notebook cell:
+%sql select * from tablename
+
+WORKING WITH REAL WORLD DATASETS:
+many data sets are available as .csv files.
+
+TO get a list of tables in database in sql server use information_schema.tables	
+
+views:
+contains specific columns from multiple tables. can run updat delete insert queries against the view.
+When you need to hide sensitive info. show only portions of data. simplify access to data.
+create view name(col1,col2,...)
+as select ..... //entire query
+
+select * from name
+
+PROCEDURES:
+set of sql statements stored and executed on database
+create procedure updatesal(IN empnum char(6), IN rating smallint)
+language sql
+begin 
+	if rating ==1 then
+		update...
+	else
+		update...
+	end if
+end
+
+call updatesal('E1001',1)
+
+ACID TRANSACTIONS:
+A transaction is simply a sequence of operations performed using one or more SQL statements as a single logical 
+unit of work. A database transaction must be ACID (Atomic, Consistent, Isolated and Durable). The effects of all 
+the SQL statements in a transaction can either be applied to the database using the COMMIT command or undone from 
+the database using the ROLLBACK command.
+indivisible unit of work.
+can contain one or more sql statements
+either all statements happen or none
+
+BEGIN
+	update..
+	update..
+	update..
+	commit
+
+join operators:
+
+inner join:
+select * from a
+inner join b
+on a.id=b.id
+
+
+
+
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS update_icon $$
+
+CREATE PROCEDURE update_icon(IN in_School_ID INTEGER, IN in_Leader_Score INTEGER)
+BEGIN
+    DECLARE exit handler for sqlexception, sqlwarning
+    BEGIN
+        -- Handle the error, you can choose to log the error or take other actions here.
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    UPDATE chicago_public_schools 
+    SET Leaders_Score = in_Leader_Score;
+
+    IF in_Leader_Score > 0 AND in_Leader_Score < 20 THEN
+        UPDATE chicago_public_schools 
+        SET Leaders_Icon = 'Very Weak'
+        WHERE School_ID = in_School_ID;
+    ELSEIF in_Leader_Score < 40 THEN
+        UPDATE chicago_public_schools 
+        SET Leaders_Icon = 'Weak'
+        WHERE School_ID = in_School_ID;
+    ELSEIF in_Leader_Score < 60 THEN
+        UPDATE chicago_public_schools 
+        SET Leaders_Icon = 'Average'
+        WHERE School_ID = in_School_ID;
+    ELSEIF in_Leader_Score < 80 THEN
+        UPDATE chicago_public_schools 
+        SET Leaders_Icon = 'Strong'
+        WHERE School_ID = in_School_ID;
+    ELSEIF in_Leader_Score < 100 THEN
+        UPDATE chicago_public_schools 
+        SET Leaders_Icon = 'Very Strong'
+        WHERE School_ID = in_School_ID;
+    ELSE
+        -- Handle the case when in_Leader_Score is out of the specified range
+        ROLLBACK;
+    END IF;
+
+    COMMIT;
+END $$
+
+DELIMITER ;

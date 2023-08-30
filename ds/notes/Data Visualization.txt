@@ -1,0 +1,488 @@
+Graphical representation of data and infomation
+
+helps easily understand complex data
+highlight patterns trends and relationships
+
+Plotting Libraries:
+Matplotlib:line plots, scatter plots, bar charts, histograms, pie charts, box plots, and heatmaps
+Seaborn:categorical plots, coount plots, heat maps,violin plots, scatter plots, bar plots.
+Folium: geo-spatial data visualisation Allows creation of interactive and cusstomisable maps.
+plotly: Interactive plots and dashboards. Line, scatter, bar, pie cahrts, 3d plots, chloropleth maps.
+pywaffle: visualise categorical data using waffle chart
+
+%matplotlib inline //to prevent plot opening in a new window in jupyter
+import matplotlib.pyplot as plt
+plt.plot(5,5,'o')
+plt.ylabel('y')
+plt.xlabel('x')
+plt.title("example")
+plt.show()
+
+if we have a dataframe:
+df.plot(kind="line") //built into pandas
+df.plot(kind="hist")
+
+Types:
+
+line plot: datapoints connected by straight lines. trends over time. dataset with cont. independent variable
+cause and effect relationships.
+plots indices on horizontal axis so transpose needed in most cases.
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+df.index = df.index.map(int) # let's change the index values of df_CI to type integer for plotting
+df.loc('row',[cols list]).plot(kind='line')
+plt.title('')
+plt.text(2000, 6000, '2010 Earthquake') # add text at 2000,6000
+
+Area plots:Displays magnitude and proportio of multiple variables over a continuous axis
+Similar to line plot but with area below line filled with ccolor to emphasisze the cumulative mag of var.
+When comparing 2 or more quantitites
+Area plots are stacked by default. And to produce a stacked area plot, each column must be either all positive or all negative values (any NaN, i.e. not a number, values will default to 0). To produce an unstacked plot, set parameter stacked to value False.
+
+df.plot(kind="area")
+
+df_top5.plot(kind='area',
+             stacked=False,
+             figsize=(20, 10))  # pass a tuple (x, y) size
+
+plt.title('Immigration Trend of Top 5 Countries')
+plt.ylabel('Number of Immigrants')
+plt.xlabel('Years')
+
+plt.show()
+
+OR use artist layer:
+ax = df_top5.plot(kind='area', alpha=0.35, figsize=(20, 10))
+
+ax.set_title('Immigration Trend of Top 5 Countries')
+ax.set_ylabel('Number of Immigrants')
+ax.set_xlabel('Years')
+
+
+bar plot: displays data using rectangular bars. height of bar represents magnitude of data.
+For comparing different categories or groups. good for discrete data. Does not represent frq bu rather 
+the value of each item
+
+%matplotlib inline
+import matplotlib as plt
+from matplotlib import pyplot
+pyplot.bar(group_names, df["horsepower-binned"].value_counts())
+
+# set x/y labels and plot title
+plt.pyplot.xlabel("horsepower")
+plt.pyplot.ylabel("count")
+plt.pyplot.title("horsepower bins")
+
+OR
+
+df.plot(kind="bar")//kind="barh" for horizontal bars, color="blue" ,edgecolor="black"
+//you can also pass a list of colors for each bar
+
+
+
+scatter plot:Represents data for two vars using cartesian coords. Used for examining relationship between
+two continuous variables. Investigating patterns or trends in data. Detecting outliers. identifying clusters 
+or groups. 
+Determines correlation bw two variables.
+
+df.plot(kind='scatter',x='',y='')
+
+plt.scatter(x,y)
+plt.title
+plt.xlabel
+plt.ylabel
+
+Get the equation of line of best fit. We will use Numpy's polyfit() method by passing in the following:
+
+x: x-coordinates of the data.
+y: y-coordinates of the data.
+deg: Degree of fitting polynomial. 1 = linear, 2 = quadratic, and so on.
+
+x = df_tot['year']      # year on x-axis
+y = df_tot['total']     # total on y-axis
+fit = np.polyfit(x, y, deg=1)
+
+The output is an array with the polynomial coefficients, highest powers first. Since we are plotting a linear regression y= a * x + b, our output has 2 elements [5.56709228e+03, -1.09261952e+07] with the the slope in position 0 and intercept in position 1.
+
+Plot the regression line on the scatter plot:
+df_tot.plot(kind='scatter', x='year', y='total', figsize=(10, 6), color='darkblue')
+plt.title('Total Immigration to Canada from 1980 - 2013')
+plt.xlabel('Year')
+plt.ylabel('Number of Immigrants')
+​
+# plot line of best fit
+plt.plot(x, fit[0] * x + fit[1], color='red') # recall that x is the Years
+plt.annotate('y={0:.0f} x + {1:.0f}'.format(fit[0], fit[1]), xy=(2000, 150000))
+​
+plt.show()
+​
+
+
+box plot:displays the distribution of the dataset along with key statistical measures.
+statisticall representing the distr of given data using 5 primary dimensions
+Box represents interquartile range. Line inside box is the median. whiskers indicate the range of the data
+excluding outliers. 
+used to compare the disribution of cont variable across different categories or groups.
+Comparing distributions of different variables.
+
+sns.boxplot(x="body-style", y="price", data=df) //using seaborn
+
+df.plot(kind='box')//matplotlib
+
+df_CI.plot(kind='box', figsize=(10, 7))
+plt.title('Box plots of Immigrants from China and India (1980 - 2013)')
+plt.ylabel('Number of Immigrants')
+plt.show()
+
+
+histogram: graaphical representation of dataset distribution. shows freq or relative frequency with 
+intervals.bar represents the data count in each interval. Visually depict the shape of the data.
+Partitions data into bins
+
+%matplotlib inline
+import matplotlib as plt
+from matplotlib import pyplot
+plt.pyplot.hist(df["horsepower"]) //can pass bins=n as param
+
+# set x/y labels and plot title
+plt.pyplot.xlabel("horsepower")
+plt.pyplot.ylabel("count")
+plt.pyplot.title("horsepower bins")
+
+or
+count,bin_edges=np.histogram(df["col"])//distributes data into 10 equal bins
+df["col"].plot(kind="hist",xticks=bin_edges)
+
+Example:
+# let's get the x-tick values
+count, bin_edges = np.histogram(df_t, 15)
+
+# un-stacked histogram
+df_t.plot(kind ='hist', 
+          figsize=(10, 6),
+          bins=15,
+          alpha=0.6,
+          xticks=bin_edges,
+          color=['coral', 'darkslateblue', 'mediumseagreen']
+         )
+
+plt.title('Histogram of Immigration from Denmark, Norway, and Sweden from 1980 - 2013')
+plt.ylabel('Number of Years')
+plt.xlabel('Number of Immigrants')
+
+plt.show()
+
+
+Heat Map:
+A heatmap is best used to represent a rectangular pivot table. It assigns a color intensity based on the data value
+at the grid points. Great way to plot the target variable over multiple variables.
+
+plt.pcolor(df_pivot,cmap="RdBu")
+plt.colorbar()
+plt.show()
+
+
+PIE CHART:
+circular statisticcal graphic divided into segments
+
+df.plot(kind='pie')
+
+df_continents['Total'].plot(kind='pie',
+                            figsize=(5, 6),
+                            autopct='%1.1f%%', # add in percentages
+                            startangle=90,     # start angle 90° (Africa)
+                            shadow=True,       # add shadow      
+                            )
+
+plt.title('Immigration to Canada by Continent [1980 - 2013]')
+plt.axis('equal') # Sets the pie chart to look like a circle.
+plt.legend(labels=df_continents.index, loc='upper left') 
+plt.show()
+
+
+Subplots:
+
+Often times we might want to plot multiple plots within the same figure. For example, we might want to perform a side by side comparison of the box plot with the line plot of China and India's immigration.
+
+To visualize multiple plots together, we can create a figure (overall canvas) and divide it into subplots, each containing a plot. With subplots, we usually work with the artist layer instead of the scripting layer.
+
+Typical syntax is :
+
+    fig = plt.figure() # create figure
+    ax = fig.add_subplot(nrows, ncols, plot_number) # create subplots
+Where
+
+nrows and ncols are used to notionally split the figure into (nrows * ncols) sub-axes,
+plot_number is used to identify the particular subplot that this function is to create within the notional grid. plot_number starts at 1, increments across rows first and has a maximum of nrows * ncols as shown below.
+
+Example:
+fig = plt.figure() # create figure
+ax0 = fig.add_subplot(1, 2, 1) # add subplot 1 (1 row, 2 columns, first plot)
+ax1 = fig.add_subplot(1, 2, 2) # add subplot 2 (1 row, 2 columns, second plot). See tip below**
+# Subplot 1: Box plot
+df_CI.plot(kind='box', color='blue', vert=False, figsize=(20, 6), ax=ax0) # add to subplot 1
+ax0.set_title('Box Plots of Immigrants from China and India (1980 - 2013)')
+ax0.set_xlabel('Number of Immigrants')
+ax0.set_ylabel('Countries')
+# Subplot 2: Line plot
+df_CI.plot(kind='line', figsize=(20, 6), ax=ax1) # add to subplot 2
+ax1.set_title ('Line Plots of Immigrants from China and India (1980 - 2013)')
+ax1.set_ylabel('Number of Immigrants')
+ax1.set_xlabel('Years')
+plt.show()
+
+
+Using matplotlib directly:
+
+import matlab.pyplot as plt
+import numpy as np
+import pandas as pd
+
+fig,ax=plt.subplots()
+years=np.arrange(1980,2014)
+immigrants=np.random.randint(2000,10000,size=(34,))
+
+ax.plot(years, immigrants) //make a line plot
+ax.scatter(years, immigrants) //make a scatter plot
+ax.bar(years,immigrants,label=[])
+ax.hist(immmigrants,bins=20,edgecolor='black',color='steelblue')
+By default, the histrogram method breaks up the dataset into 10 bins.
+The hist function retuns list of arrays with 1. counts and 2. bins. we can fetch that using unpacking functionality
+and further use the bins as x-ticks
+count = ax.hist(df_country['2013'])
+ax.set_xticks(list(map(int,count[1])))
+
+
+ax.pie(immigrants[0:5],labels=years[0:5],colors=[],autopct="%1.1f%%",explode = [0,0,0,0,0.1]) #using explode 
+to highlight the lowest //autopct to display percentage with 1dp
+ax.set_aspect('equal') # Ensure pie is drawn as a circle
+
+plt.title()
+plt.xlabel()
+plt.label()
+plt.xlim(1975,2015)//set limits of x axis
+plt.grid(True) //enables grid
+plt.legend(["immigrants"], loc="upper right")
+OR
+
+ax.set_title()
+ax.set_xlabel()
+ax.set_ylabel()
+ax.legend()
+ax.set_xlim()
+ax.annotate('2010 Earthquake',xy=(2000, 6000)) //xy is the coordiantes of the annotation
+
+plt.show()
+
+You can customize line styles, marker styles, colors
+ax.plot(years,immigrants,marker='s', //s for square and o for circle
+markersize=5, color="green", linestyle="dotted")//linestyle can be solid, dashed , or dotted
+
+To create more than 1 plot:
+
+fig,axs=plt.subplots(rows,cols,sharey=True,figsize=(8,4)) //sharey means same scale on y axis
+axs[0].plot()
+axs[0].set_title()
+
+axs[1].scatter()
+axs[1].set_title()
+    #Adding a Title for the Overall Figure
+fig.suptitle('Four Plots in a Figure Example', fontsize=15)
+
+OR
+
+axs1=fig.add_subplot(2,2,1) //(rows,columns,index) means add plot to top left
+axs1.plot()
+axs1.set_title()
+
+axs2=fig.add_subplot(2,2,2) //(rows,columns,index) means add plot to top right
+axs2.scatter()
+axs2.set_title()
+
+
+Waffle charts and wordclouds:
+
+waffle charts represent categorical data in he form of square tiles or cells
+Effectively show the proportion or percentage of each category
+Can be used for market share analysis, Demographic rep, proj progress tracking, budget allocation, 
+survey responses. elction results, and product sales analysis.
+
+from pywaffle import Waffle
+data=df[[]]
+fig=plt.figure(FigureClass=Waffle,rows=20,columns=20,values=data,legend={'labels':[],'loc':'upper left'})
+plt.show()
+
+
+Wordcloud is used to visually represent data in an engaging and informative manner.
+Visual overview of most commonly used words wihin a given text or collection of documents
+A word appears bigger or bolder in a clod depending on the number of times it appears in the text
+Used in Social Media analysis, customer feedback analysis, content analysis, market research, resume or 
+job desc analysis.
+
+from wordcloud import WordCloud, STOPWORDS
+stopwords = set(STOPWORDS)
+alice_wc = WordCloud() //make a word cloud object
+# generate the word cloud
+alice_wc.generate(alice_novel) //pass in the string
+plt.imshow(alice_wc, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+
+
+SEABORN:
+
+Scatter plot with added linear regression line:
+sns.regplot(x="engine-size",y="price",data=df,color="green",marker="+") //regplot makes scatter plot and 
+fitted regression line
+sns.set(font_scale=1.5)
+sns.set_style('whitegrid')
+
+CountPlot:
+sns.countplot(x='continent',data=df)//the count of each value in x in a bar graph
+
+barplot:
+sns.barplot(x='continent',y='total',data=df)//continents will be grouped and the mean of total will be taken 
+for each
+
+
+FOLIUM:
+Built to hellp visualise geospatial data
+You can create a map of any location in the word with latitude and longitude values.
+
+import folium
+world_map=folium.Map(location=[lat,long],zoom_start=4)
+folium.Marker(location=[lat,long], popup='Ontario').add_to(world_map)
+
+Check lab for customizations
+
+choropleth maps:
+Thematic maps in ehich areas are shaded or patterened in proportion to the measurement of the stat var 
+displayed on the map
+
+For a chorpleth map of the wold we need a geoJSON file that lists each country and geospatial data 
+to define its borders and boundaries.
+
+worldmap=folium.Map(zoom_start=2,tiles='Mapbox Bright')
+world_geo=r'world_countries.json'
+world_map.chorpleth(geo_path=world_geo,data=df_canada,columns=['Country','Total'],fill_color='YlOrRd',
+legend_name='Immigration to canada')
+
+
+DASHBOARDS:
+Real time visuals.
+Best dashboards answer business questions.
+Dash is a tool for building analytic web applications. Runs on top of flask,plotly.js,react.js.
+Suited for building data vis apps with highly customised ui
+
+Panel works with vis from bokeh,matplotlib,HoloViews. panel works well in jupyter notebooks too.
+
+Voila turns jupyter notebooks into stand alone web applications.
+
+Streamlit can easily turn data scripts into shareable web apps.
+
+PLOTLY:
+Interactive, open source plotting library
+You can see values by hovering over points in the graph
+Two modules:
+plotly graph objects:low level interface to figures traces and layouts.
+plotly express: highlevel wrapper for plotly. Good for creating most common figures provided by plotly
+
+plotlly.graph contains a json object. chart is plotted by updating the values in json
+figure is created by adding a trace
+
+import plotly.graph_objects as go
+import plotly.express as px
+import numpy as np
+
+np.random.seed(10) //set random seed for reproducibility
+x=np.arrange(12)
+y=np.random.randint(50,500,size=12)
+
+#using go
+fig=go.Figure(data=go.scatter(x=x,y=y))
+fig.update_layout(title='Simple line plot',xaxis_title='',yaxis_title="")
+fig.show()
+
+OR
+
+#using express
+fig=px.line(x=x,y=y,title="",labels=dict(x='',y=''))
+fig.update_traces(line_color='green')
+fig.show()
+
+px.<graphtype>(x=<xaxis value source>,y=<y-axis value source>,title=<appropriate title as a string>)
+
+# Use plotly express bar chart function px.bar.Provide input data, x and y axis variable, and title of the chart.
+# This will give average pass percentage per class
+fig = px.bar( x=grade_array, y=score_array, title='Pass Percentage of Classes') 
+fig.show()
+
+## Use plotly express histogram chart function px.histogram.Provide input data x to the histogram
+fig = px.histogram(x=heights_array,title="Distribution of Heights")
+fig.show()
+
+## Bubble chart using px.scatter function with x ,y and size varibles defined.Title defined 
+as Crime Statistics
+fig = px.scatter(bub_data, x="City", y="Numberofcrimes", size="Numberofcrimes",
+                 hover_name="City", title='Crime Statistics', size_max=60)
+fig.show()
+
+
+# Use px.pie function to create the chart. Input dataset. 
+# Values parameter will set values associated to the sector. 'exp_percent' feature is passed to it.
+# labels for the sector are passed to the `house hold categoris` parameter.
+fig = px.pie(values=exp_percent, names=house_holdcategories, title='Household Expenditure')
+fig.show()
+
+
+DASH:
+Open source ui python library for creating reactive web based applications.
+DAsh apps are web servers running flask
+Renders components using react js
+Can be rendered in a web browser and deployed to servers.
+
+import dash_core_components as dcc //high lvl interactive components generated with html css js through react
+import dash_html_components as html //has component for every html tag. key word arguments describe
+ html attributes like style class id
+
+
+python3 -m pip install packaging
+python3 -m pip install pandas dash
+pip3 install httpx==0.20 dash plotly
+
+callbacks:
+function that is automatically called by dash whenever an input components propert changes
+decorated with @app.callback
+
+def callback_func:
+	return result;
+
+@app.callback(output,input)
+
+output sets results returned to a component id
+input provided to the callback function to a component id
+
+import pandas as pd
+import dash
+import dash_core_components as dcc 
+import dash_html_components as html
+import plotly.express as px
+from dash.dependencies import Input,Output
+
+airline_data=pd.read_csv()
+
+app=dash.Dash()
+app.layout=html.Div(children=[html.H1(),html.div(dcc.Input(id="input-yr")),html.Div(dcc.graph(id='bar-plot))])
+
+@app.callback(Output(component_id='bar-plot',component_property='figure'),
+		Input(component_id='input-yr',component_property='value'))
+//if more than one input [input(),input()]
+
+def get_graph(entered_year):
+	...
+	return fig1
+
+if __name__=='__main__':
+	app.run_server(port=8002,host='127.0.0.1',debug=True)
+
+

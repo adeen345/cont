@@ -1,0 +1,217 @@
+PANDAS:
+import pandas as pd
+df=pd.read_csv("path") //to read a csv file into a dataframe
+df.to_csv('path') //to store dataframe into a csv file
+df.head()//examine the first 5 rows of a df. takes a param which is no of rows you want to see df.head(n)
+df.tail()
+ .read_excel //to read an excel file into a df
+df.info() //This method prints information about a DataFrame including the index dtype and columns, non-null values 
+and memory usage.
+df.describe()// Pandas describe() is used to view some basic statistical details like percentile, mean, 
+standard deviation, etc. of a data frame or a series of numeric values. 
+When this method is applied to a series of strings, it returns a different output
+
+df.at[index,'colName'] //returns value of row
+We use Python's built-in functions to identify these missing values. There are two methods to detect missing data:
+
+missing_data=df.isnull() //"True" stands for missing value, while "False" stands for not missing value.
+
+.notnull()
+
+The output is a boolean value indicating whether the value that is passed into the argument is in fact missing data.
+
+
+Using a for loop in Python, we can quickly figure out the number of missing values in each column. As mentioned 
+above, "True" represents a missing value, "False" means the value is present in the dataset. In the body of the 
+for loop the method ".value_counts()" counts the number of "True" values.
+for column in missing_data.columns.values.tolist():
+    print(column)
+    print (missing_data[column].value_counts())
+    print("")    
+
+Check all data is in the correct format (int, float, text or other).
+
+We can reset the index of the DataFrame with the reset_index function. We also set the inplace paramter to True 
+so the change takes place to the DataFrame itself.
+
+In Pandas, we use
+
+.dtype() to check the data type
+
+.astype() to change the data type
+
+Numerical variables should have type 'float' or 'int'.
+
+We can also create a data frame out of a dictionary:
+songs={"Album":['a','b','c','d'],"Released":[1,2,3,4]}
+songs_frame=pd.DataFrame(songs) //keys correspond to column labels. The list of vaalues are rows
+
+To create a new dataframe consisting of one column or more from the existing dataframe:
+x=songs_frame[['colName1','c2','c3']]
+
+to simply access a column as series: df['ColName']
+
+to find the unique values in the column:df['ColName'].unique()
+
+df['col']>x //returns true for all rows wih values greater than x in this column. to select these
+df1=df[df['released']>=x]
+
+Pandas is a popular library for data analysis built on top of the Python programming language. 
+Pandas generally provide two data structures for manipulating data, They are:
+
+DataFrame
+Series
+
+A DataFrame is a two-dimensional data structure, i.e., data is aligned in a tabular fashion in rows and columns.
+
+A Pandas DataFrame will be created by loading the datasets from existing storage.
+Storage can be SQL Database, CSV file, Excel file, etc.
+It can also be created from the lists, dictionaries, and from a list of dictionaries.
+Series represents a one-dimensional array of indexed data. It has two main components :
+
+An array of actual data.
+An associated array of indexes or data labels.
+The index is used to access individual data values. You can also get a column of a dataframe as a Series. 
+You can think of a Pandas series as a 1-D dataframe.
+
+LOC and ILOC:
+loc() is a label-based data selecting method which means that we have to pass the name of the row or column that 
+we want to select. This method includes the last element of the range passed in it.
+
+Simple syntax for your understanding:
+
+loc[row_label, column_label]
+
+iloc() is an indexed-based selecting method which means that we have to pass an integer index in the method to 
+select a specific row/column. This method does not include the last element of the range passed in it.
+
+Simple syntax for your understanding:
+
+iloc[row_index, column_index]
+
+To change the index column to one of the columns:
+df2=df2.set_index("ColName")
+
+to create a new index col:
+new_index=['a','b','c','d','e','f','g','h']
+df.index=new_index
+
+Index column is not counted when getting the number of a column
+
+SLICING:
+Slicing uses the [] operator to select a set of rows and/or columns from a DataFrame.
+
+To slice out a set of rows, you use this syntax: data[start:stop],
+
+here the start represents the index from where to consider, and stop represents the index one step BEYOND the 
+row you want to select. You can perform slicing using both the index and the name of the column.
+
+NOTE: When slicing in pandas, the start bound is included in the output.
+
+So if you want to select rows 0, 1, and 2 your code would look like this: df.iloc[0:3].
+
+It means you are telling Python to start at index 0 and select rows 0, 1, 2 up to but not including 3.
+
+NOTE: Labels must be found in the DataFrame or you will get a KeyError.
+
+Indexing by labels(i.e. using loc()) differs from indexing by integers (i.e. using iloc()). With loc(), both 
+the start bound and the stop bound are inclusive. When using loc(), integers can be used, but the integers refer 
+to the index label and not the position.
+
+For example, using loc() and select 1:4 will get a different result than using iloc() to select rows 1:4. 
+
+Transform Function in Pandas
+Python's Transform function returns a self-produced dataframe with transformed values after applying the function 
+specified in its parameter.
+
+df=pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=['a', 'b', 'c'])
+df = df.transform(func = lambda x : x + 10)
+result = df.transform(func = ['sqrt'])
+
+amazon_data = pd.DataFrame(columns=["Date", "Open", "High", "Low", "Close", "Volume"])
+
+for row in soup.find("tbody").find_all("tr"):
+    col = row.find_all("td")
+    date = col[0].text
+    Open = col[1].text
+    high = col[2].text
+    low = col[3].text
+    close = col[4].text
+    adj_close = col[5].text
+    volume = col[6].text
+    
+    amazon_data = amazon_data.append({"Date":date, "Open":Open, "High":high, "Low":low, "Close":close, 
+"Adj Close":adj_close, "Volume":volume}, ignore_index=True)
+
+Execute the following lines to remove an null or empty strings in the Revenue column.
+tesla_revenue.dropna(inplace=True)
+​tesla_revenue = tesla_revenue[tesla_revenue['Revenue'] != ""]
+
+
+NUMPY:
+import numpy as np
+a=np.array([1,2,3,4]) //to cast a list to a numpy array. Each element is of the same type
+to access a value we use the same [] subscript operator
+a.size //number of elements in the array
+a.dtype//type of the elements
+a.ndim //represents the number of array dimensions
+a.shape //a tuple of integers indicating the size in each dimension
+
+slicing works the same as in lists
+a[3:5]=300,500 //to assign multiple indexes new values.
+
+basic operations:
+c=a+b //adds whole array together summing the values at each index. Like vector addition
+c=a-b
+c=2a
+c=a*b
+c=np.dot(a,b) //dot product of two vectors
+c=a+1 //add one to each position
+
+universal functions:
+a.mean() //calculates mean
+a.max()
+a.min()
+a.std()
+
+np.add(a,b) //same as a+b
+np.subtract(a, b)
+np.multiply(x, y)
+np.divide(a, b)
+
+np.pi //value of pi
+np.sin(a) //applies sin to each value
+
+plot a line:
+np.linespace(-2,2,num=5) //start,end,NumOfSamples
+
+x=np.linespace(0,2*np.pi,100)
+y=sin(x)
+
+import matplotlib.pyplot as plt
+%matplotlib inline //for jupyter to show the plot
+plt.plot(x,y)
+
+selecting using list:
+Similarly, we can use a list to select more than one specific index. The list select contains several values:
+select = [0, 2, 3, 4]
+a= arr[select]
+
+
+2D arrays:
+a=[[1,2,3],[4,5,6],[7,8,9]]
+A=np.array(a)
+A.ndim //to get dimension 
+A.shape //(3,3)
+A[0][0] //first row first column
+A[0,0] //same as above
+
+slicing:
+A[0,0:2] //means row 1 col 1 to 2
+
+Mathematical operations work like matrices. except multiplication
+X*Y //results in a matrix of same size in which x and y elements of same pos are multiplied
+for matrix multiplication:
+c=np.dot(a,b)
+c.T //for transpose of matrix
+

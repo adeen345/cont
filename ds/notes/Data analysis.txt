@@ -1,0 +1,335 @@
+Data analysis helps us to answer questions from data.
+It helps to discover information from data, answer questions and predict the future or unknown.
+
+Libraries:
+Pandas(data structures and tools)
+Numpy(Arrays and matrices)
+Scipy(Integrals, differential eqs, optimization)
+Matplotlib(graphs and plots)
+Seaborn(heat maps, time series, violin plots)
+scikit-learn(tools for statistical modeling including regression, classification, clustering, etc)
+Statsmodels(estimate statistical models and perform tests)
+
+Importing Data:
+Process of reading data ino python from various sources.
+Consider forma and file path when you need to import data.
+
+importing csv:
+import pandas as pd
+url=""
+df=pd.read_csv(url)
+//this assumes the data has headers. if no headers specify:
+df=pd.read_csv(url,header=None)
+
+Looking at data:
+df.head(n) //show first n rows
+df.tail(n) //last n rows
+df.info() //shows top and bottoom 30 rows
+
+Assigning headers:
+headers=["","",...]
+df.columns=headers
+or do it when reading data:
+df = pd.read_csv(filename, names = headers)
+
+to convert headers from integers to strings:
+df_can.columns = list(map(str, df_can.columns))
+
+df_can.set_index('Country', inplace=True)
+# optional: to remove the name of the index
+df_can.index.name = None
+
+To select basd on a condition:
+condition = df_can['Continent'] == 'Asia'
+df_can[condition]
+
+Sorting Values of a Dataframe or Series
+You can use the sort_values() function is used to sort a DataFrame or a Series based on one or more columns.
+You to specify the column(s) by which you want to sort and the order (ascending or descending). Below 
+is the syntax to use it:-
+df.sort_values(col_name, axis=0, ascending=True, inplace=False, ignore_index=False)
+
+# Randomly sample 500 data points. Setting the random state to be 42 so that we get same result.
+data = airline_data.sample(n=500, random_state=42)
+
+Exporting to csv:
+df.to_csv(path)
+
+Data types in dataframes:
+object-->strings
+int64-->int
+float64-->float
+datetime64-->time data
+
+df.dtypes() //datatype of each column returned in a series
+YOu need to check data type bcs there might be mismatch while reading which may need to be resolved.
+It will also tell you which functions can be applied to which column
+
+Replace unknown values with NaN:
+df1=df.replace('?',np.NaN)
+
+You can select the columns of a dataframe by indicating the name of each column. For example, you can select the 
+three columns as follows:
+dataframe[[' column 1 ',column 2', 'column 3']]
+Where "column" is the name of the column, you can apply the method ".describe()" to get the statistics of those 
+columns as follows:
+dataframe[[' column 1 ',column 2', 'column 3'] ].describe()
+
+statistical summary:
+df.describe() //returns a statistical summary of each column
+Automatically skips non numerical columns but they can be included by using
+df.describe(include='all')
+
+Data preprocessing:
+process of converting or mapping data from the initial raw form into another format in order to prepare it for 
+further analysis. Called data cleaning or wrangling.
+
+1-Missing values:When no data is stored for a feature. Can be represented as ?,N/A,0, or a blank cell.
+Try to contact the person who collected the data and see if they can tell what the data could be.
+or Remove data where the missing vallue is found. Either the entire variable or the data entry.
+or replace it with an average of the entire variable colummn. If it is categorical use most repeated value.
+or Leave it as missing data
+
+Drop:
+df1.dropna(subset=["col"], axis=0,inplace=True) //axis=0 drops rows with missing values. 1 drops cols.
+subset column label or sequence of labels. only drop if selected columns have nan
+Labels along other axis to consider, e.g. if you are dropping rows these would be a list of columns to include.
+inplace=True allows modification to be done directly on the dataframe. Either use inplace ro do df=df.dropna
+
+
+After dropping rows it is important to reset the index.
+df.reset_index(drop=True, inplace=True)
+drop bool, default False
+Do not try to insert index into dataframe columns. This resets the index to the default integer index.
+
+
+Replace:
+df1=df.replace('?',np.NaN)
+
+We use the following functions to identify these missing values. There are two methods to detect missing data:
+.isnull()
+.notnull()
+The output is a boolean value indicating whether the value that is passed into the argument is in fact missing data.
+missing_data = df.isnull()
+
+To count missing values in each column:
+for column in missing_data.columns.values.tolist():
+    print(column)
+    print (missing_data[column].value_counts())
+    print("")
+
+To see which values are present in a particular column, we can use the ".value_counts()" method:
+df['col'].value_counts()
+
+TO calculate most common type of value:
+df['col'].value_counts().idxmax() //then use this to replace nan
+
+2-Data Formatting: Data from different sources may be inn various formats in different units or various conventions.
+Standardize values into the same format to allow meaningful comparison. for eg in city column it might be NY 
+somewhere and N.Y. in other places and maybe even New York in some. These all need to be in same format. use 
+df.replace()
+You may need to change units such as L/100km from mpg. 
+For this you can apply calc on whole col by df['col']=df['col']*100
+TO rename column: df.rename(columns={"city_mpg":"city-L/100km"},inplace=True)
+
+For correcting incorrect data types:
+df["col"]=df["col"].astype("int")
+df[["bore", "stroke"]] = df[["bore", "stroke"]].astype("float") //use list of cols for multiple columns
+
+3-Data Normalization: Different columns of numerical data may have very different ranges and direct comparison is
+often not meaningful. Normalization brings all data into a similar range. Techniques such as centering and scaling.
+Can make some statistical analysis easier down the road. By making ranges consistent between variables normalization
+enables a fair comparison between the different features making sure they have the same impact.
+In linear regression larger variables influence the result more so thats why normalization is needed.
+Can normalize variables into range 0 to 1.
+Also called feature scaling.
+
+Simple feature scaling: xnew=xold/xmax
+df["col"]=df["col"]/df["col"].max()
+
+Min-Max: xnew=(xold-xmin)/(xmax-xmin)
+df["col"]=(df["col"]-df["col"].min())/(df["col"].max()-df["col"].min())
+
+z/standard score: xnew=(xold-mean)/std //values between -3 to 3. standard normal distribution
+df["col"]=df["col"]-df["col"].mean()/df["col"].std()
+
+For min or max values: df["col"].max()
+
+4-Data Binnning: Bigger categories fro a set of numerical values. Useful for coparison between groups of data.
+Grouping of values. Converts numeric into categorical vars.
+Group a range of values into a category.
+Such as for range of heights give it a category or small medium large.
+Or bin age.
+Sometimes binning can improve the accuraccy of predictive models.
+Sometimes we group a set of numerical values into a smaler number of bins t have a better understanding of data
+distribution.
+to create bins:
+bins=np.linspace(min(df["price"]),max(df["price"]),4)
+group_names=["low","medium","high"]
+df["price-binned"]=pd.cut(df["price"],bins,labels=group_names,include_lowest=True)
+
+Histogram is used for the vis of bins.
+
+5-Turning categorical values to numrical variables to make statistical modeling easier:
+Most statistical models cannot take in strings as input
+Add dummy cccolumns for each unique category and put 1 or 0 as values.
+For eg: fuel has two values gas and diesel. Create two new cols with these names and give them value of 1 
+where fuel is the same as column name
+THis is called one-hot encoding.
+use get_dummies method to convert categorical vars to dummy variables.
+dummy_variable_1 = pd.get_dummies(df["fuel-type"]) //pass the column
+dummy_variable_1.rename(columns={'gas':'fuel-type-gas', 'diesel':'fuel-type-diesel'}, inplace=True)
+# merge data frame "df" and "dummy_variable_1" 
+df = pd.concat([df, dummy_variable_1], axis=1) //axis=1 means add as columns
+# drop original column "fuel-type" from "df"
+df.drop("fuel-type", axis = 1, inplace=True)
+
+EXPLORATORY DATA ANALYSIS:
+summarize main characterisitics of data
+gain better understanding of data set
+uncover relationships bw variables
+extract important variables
+
+1-Descriptive Statistics:
+Describe basic features of dataset and obtain a short summary about the sample and measures of data.
+df.describe() //skips nan values
+For categorical vars:
+df.value_counts() 
+
+Box plots are a great way to analyse numeric data:
+They can also be used for seeing relationship bw categorical variable and ind var
+median upper quartile lower quartile.
+upper extreme is median+1.5 x interquartile range
+
+For continuous variables you can also use scatter plots. Each observation is represented as a point.
+It shows the relationship between two variables
+predictor/indep. var on x axis
+target/dep. var on y axis	
+
+2-Grouping data using GroupBy: To check if there is a relationship between categorical variables and the dep. var
+group categories together and get avg of dep var in each category.
+df.Groupby() //groups data into subsets depending on different categories of that variable.
+Grouping can be done by single var or multiple variables
+
+df_test=df[["drive-wheels","body-style""price"]]
+df_grp=df_test.groupby(['drive-wheels','body-style'],as_index=False).mean() //the mean of price for eeach group
+is appended at the end.
+
+To make this table more readable we can use pivot function so that one variable is diplayed along col and the other
+along rows
+df_pivot=df_grp.pivot(index='drive-wheels',columns='body-style') //price is in a rectangular grid which is 
+easier to visualize
+
+A heatmap is best used to represent a rectangular pivot table. It assigns a color intensity based on the data value
+at the grid points. Great way to plot the target variable over multiple variables.
+
+3-Correlation: Statistical metric for measuring to what extent variables are interdependent. How does change in
+one variable affect another variable.
+Correlation does not imply causation.
+We can use scatter plot with regression line using seaborn to get an idea of the correlation before calculating
+the correlation coefficients
+
+4-Correlation Statistics such as pearson correlation, correlation heat maps
+-pearson correlation: to measure strength of correlation bw two features. Gives you two values, correlation coeff.
+and the p-value.
+corr coeff:
+close to +1: Large positive corr
+close to -1: Large negative corr
+close to 0: No corr
+p-value: how certain we are about the corr we calculated
+p<.001: strong certainty
+p<.05:Moderate certainty
+p<.1:Weak cert
+p>0.1: No certainty
+
+Strong corr when corr coeff close to +1 or -1 and p<0.001
+
+For pearson use scipy stats package:
+pearson_coef, p_value=stats.pearsonr(df[col],df[col2])
+
+For pairwise corr of all columns:
+df.corr(method="pearson", numeric_only=True)
+
+We can create a heat map that shows corr between each of the variables. From this heatmap we can figure out what 
+variables our ind var dependds on.
+
+-Association bw categorical var-chi-squared test: used to find if there is a rel bw two categorical variables
+test for association. Intended to test how likely it is that an observed dist is due to chance.
+Measures how well the observed dist of data fits with the dist that is expected if var are independent.
+Tests a null hypothesis that variables are ind.
+Compares the observed data to values the model expects if the data was distr in different categories by chance.
+Anytime the obs data dosent fit in the prob that the variables are dep becomes stronger proving null hypothesis 
+incorrect. Does not tell the type of relationship. 
+We find the observed counts in each category by creating a cross tab using pandas lib. It is a table showing 
+relationship between two or more variables.
+If it shows rel bw only two tables crosstab is known as a contingency table
+eg:
+      |		standard    turbo    total
+______|_______________________________________________
+Diesel|
+      |
+Gas   |
+      |
+Total |
+
+
+X^2=SUMMATION((O-E)^2/E)
+
+To calculate Expected value:
+row total*col total/grand total
+
+find x^2 value usind dof 1. if p<0.05 reject N.H. and conclude thaat there is an association between the two 
+variables.
+
+scipy.stats.chi2_contingency(cont_table,correction=True)
+the first value is test statistic, and second is p value, 3rd is dof.
+it also prints out the expected values.
+
+
+For continous numerical vars: use scatterplots with regression lines, pearson corr
+For categorical vars: use box plots, chi square test
+
+Gettin counts in each category:
+drive_wheels_counts = df['drive-wheels'].value_counts().to_frame()
+drive_wheels_counts.rename(columns={'drive-wheels': 'value_counts'}, inplace=True)
+drive_wheels_counts.index.name = 'drive-wheels'
+
+df[col].unique() //gives a list of all possible values of a column
+
+df.fillna(0) //replaces nan with 0
+
+ANOVA: Analysis of Variance
+The Analysis of Variance (ANOVA) is a statistical method used to test whether there are significant differences 
+between the means of two or more groups. ANOVA returns two parameters:
+F-test score: ANOVA assumes the means of all groups are the same, calculates how much the actual means deviate 
+from the assumption, and reports it as the F-test score. A larger score means there is a larger difference between 
+the means.
+P-value: P-value tells how statistically significant our calculated score value is.
+If our price variable is strongly correlated with the variable we are analyzing, we expect ANOVA to return a 
+sizeable F-test score and a small p-value.
+
+Since ANOVA analyzes the difference between different groups of the same variable, the groupby function will 
+come in handy. Because the ANOVA algorithm averages the data automatically, we do not need to take the average 
+before hand.
+
+To see if different types of 'drive-wheels' impact 'price', we group the data.
+grouped_test2=df_gptest[['drive-wheels', 'price']].groupby(['drive-wheels'])
+
+We can obtain the values of the method group using the method "get_group". //to get price for one group
+grouped_test2.get_group('4wd')['price'] //get prices for 4wd group
+We can use the function 'f_oneway' in the module 'stats' to obtain the F-test score and P-value.
+
+f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'], grouped_test2.get_group('4wd')['price'])  
+
+
+
+ 
+print( "ANOVA results: F=", f_val, ", P =", p_val)   
+This is a great result with a large F-test score showing a strong correlation and a P-value of almost 0 implying 
+almost certain statistical significance. But does this mean all three tested groups are all this highly correlated?
+
+
+all of these steps tell us which variables affect price and should be included in our model.
+
+
+df=df._get_numeric_data() //to get only cols with numeric values

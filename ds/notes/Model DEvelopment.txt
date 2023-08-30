@@ -1,0 +1,281 @@
+A model can be thought of as a mathematical equation used to predict a value given one or more other values 
+relating one or more independent variables to dependent variables.
+The more relevant data you have the more accurate your model is.
+
+
+Simple and Multiple Linear regression:
+Simple linear regression refers to one independent variable to make a prediction.
+Multiple linear regression refers to multiple ind variables to make a prediction
+
+Simple Linear Regression:
+Helps us understand the relation between two variables.
+predictor-x
+target-y
+y=b0+b1x
+b0 is the intercept
+b1 is the slope
+When we train the model we come up with these parameters
+
+In order to determine the line we take data points from our dataset. We use these training poins to fit our model.
+This gives us the parameters. The data points are stored in datafraeor numpy arrays. Each sample corresponds
+to different row.
+Uncertainity is taken into account a assuming a small random value is added to the point on the line. This is 
+noise. Noise has normal dist type curve. Vertical axis shows value addded. horizontal axxis shows probability that
+value will be added. Most of the times values near zero are added.
+
+First we use training points to train the model and get params. We then use these params in the model for est.
+We can use the model to predict values we havent seen. Model is not always correct. If linear assumption is correct
+then error are due to noise.
+
+from sklearn.linear_model import LinearRegression
+lm=LinearRegression()
+x=df[['predictor']]
+y=df[['target']]
+lm.fit(x,y)
+pred=lm.predict(x) //returns an array with y values. array has the same no of values as input x
+lm.intercept_ //b0
+lm.coeff_ //b1
+
+Multiple linear Regression:
+One continuous y variable
+Two or more predictor x variables
+
+y=b0+b1x1+b2x2+b3x3+....
+
+If there aare two predictor variables we can visualise them in the 2d plane.
+
+from sklearn.linear_model import LinearRegression
+lm=LinearRegression()
+x=df[['predictor','predictor2',...]]
+y=df[['target']]
+lm.fit(x,y)
+pred=lm.predict(x) //input is an array or df with cols the same as no of predictor vars
+lm.intercept_ //b0
+lm.coeff_ //list of coeff
+
+Model Evaluation using visualisation:
+Regression plot is used.
+They are good estimates of relation between two vars, strength of ccorr, and dir of rel
+It shows a combination of scatterplot and fitted linear regression line.
+
+import seaborn as sns
+sns.regplot(x="",y="" data=df)
+plt.ylim(0,)
+
+Residual plot:
+Represents error between the actual and target value
+y0^-Y0 //y0 is the actual
+we plot this difference on the y axis
+
+If the results have zero mean distributed evenly around the x axis with similar variance. There is no curvature.
+This type of residual plot suggests that a linear plot is appropriate.
+If the residuals are not randomly separated and there is a curve this suggests the linear assumption is incorrect.
+If the variance increases with x(triangle), model is incorrect
+Randomly spread out residuals means that the variance is constant, and thus the linear model is a good fit for 
+this data.
+To create a residual plot:
+import seaborn as sns
+sns.residplot(df['predictor'],df['target'])
+
+Distribution plot:
+For models with more than one independent variables.
+From the scatter plot we first look at the ind var. We count how many values are equal to 1 then 2 then 3 and 
+plot them in a histogram for discrete values and a curve for continuous.
+Then we look at the target var and repeat the same process
+If the distributions overlap that means the model is a good fit
+
+import seaborn as sns
+ax=sns.distplot(df['target'],hist=false,color='r',label="Actual")
+sns.distplot(pred,hist=False,color="b",label="Predicted",ax=ax1)
+
+Polynomial regression and Pipelines:
+When linear model is not the best fit for the data.
+We transform our data into a polynomial and use linear regression to fit the parameter.
+It is a special case of a general linear regression. Benificial for describing curvilinear relationships.
+Curvilinear relationship is when you square or set higher order terms for predictor variables in the model
+transforming the data.
+
+Model can be quadratic:predictor var in the model is squared. second order poly reg.
+y^=b0+b1.x1+b2.x1^2
+
+Model can be cubic:
+y^=b0+b1.x1+b2.x1^2+b3.x1^3
+
+Higher order poly reg.:
+When good fit hasnt been achieved by second or third order.
+The degree of regression makes a big difference and can reult in a better fit if you pick the right value.
+
+The relationship bw variable and param is always linear in all cases.
+
+import numpy as np
+f=np.polyfit(x,y,3) //three means cubic or third order
+p=np.poly1d(f)
+print(p)
+
+We can also have multidimensional poly reg. Cannot be done using numpy. Use preprocessing lib in sickit learn
+from sklearn.preprocessing import Polynomialfeatures
+pr=PolynomialFeatures(degree=2,include_bias=False)
+x_polly=pr.fit_transform(df[['pred1','pred2']]) //transforms to linear
+lr=LinearRegression()
+lr.fit(x_polly,y_polly)
+
+As dimensions of data get larger we may want to normalize multiple features. We can used the preprocessing 
+module to simplify many tasks
+We can normalize each feature simultaneously
+Standardization: StandardScaler standardizes a feature by subtracting the mean and then scaling to unit 
+variance. Unit variance means dividing all the values by the standard deviation. Standardization can be 
+helpful in cases where the data follows a Gaussian distribution (or Normal distribution).
+
+from sklearn.preprocessing import StandardScaler
+SCALE=StandardScaler()
+SCALE.fit(x_data[['pred1','pred2']]) //fit the data on the new scale
+x_scale=SCALE.transform(x_data[['pred1','pred2']])
+
+There are many steps to getting a prediction: normalization, polynomial transform, and linear regression
+We can simplify the process using a pipeline. Pipelines sequentially perform a series of transformations
+
+from 
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import Polynomialfeatures
+from sklearn.preprocessing import Linearregression
+from sklearn.pipeline import Pipeline
+Input=[('scale',StandardScaler()),('polynomial',PolynomialFeatures(degree=2),('mode',LinearRegression)] //list of 
+tuples.First element in tuple contains the name of the estimator model. Second contains model Constructor
+pipe=Pipeline(Input)
+pipe.fit(df[['','',..]],y)
+pred=pipe.predict(x[['','',...]])
+
+R-squared and MSE for In-Sample Evaluation:
+
+Numerically evaluate model.
+Measures to numerically determine how good the model fits the dataset.
+Two important are:
+Mean-squared error-(actualvalue-predicted)^2. Add all the errors and divide by total number of errors added.
+from sklearn.metrics import mean_squared_error
+mean_squared_error(df['target'],y_pred)
+
+R-squared- Called the coeff of determination. Measure to determine how close the data is to the fitted 
+regression line.
+It is comparing a regression model to mean
+The lower the R^2, the worse the model. A negative R^2 is a sign of overfitting.
+
+calculate the mean of target var.
+1-(MSE of regressionline/mse of avg of data)
+If value close to 1 line is a good fit.
+
+lm.fit(x,y)
+lm.score(x,y) //R-squared value. it means tht approximately this much of variation is explained by this model
+if value is negative it is due to overfitting
+
+Prediction and decision making: 
+How can we determine if our model is correct.
+1-Do the prediced values make sense
+2-Numerical values for evaluation
+3-Comparing between different models
+
+Sometimes you model produces values that dont make sense. This could be because values in that range are not 
+realistic. 
+To generate a sequence of values in a specified range use numpy:
+import numpy as np
+inp=np.arrange(0,101,1).reshape(-1,1)
+use this lm.predict(inp) then use regression plot to visualize. then make a residual plot
+
+MSE is most intuitive num measure for determining if a model is good or not. THe lower the error the closer the
+points are to the line
+A lower mse does not necessarily mean a good fit. for multiple regression mse will be lower as more vaariables
+will decrease error
+polynomial regression also has a smaller mse
+
+Model Refinement:
+Evaluation tells us how the model works in the real world
+In-sample evaluation tells us how the model works on the data already used to train the model.
+This is why we should split up data into training and test data
+Training set-70%
+testing set-30%
+Build and train model with training set
+use testing set to assess the performance
+Once testing is complete we should use all the data to train the model to get the best performance
+
+to split data:
+from sklearn.model_selection import train_test_split
+x_train,x_test,,y_train,y_test=train_test_split(x_data,y_data,test_size=0.3,random_state=0)
+
+Generalization error:
+It is a measure of how well our model does at predicting ppreviosly unseen data
+The error we obtain using our testing data is an approximation of this error
+distribution plot can be used here
+
+If we keep more for training and less for testing accuracy better but precison low, annd vice versa
+TO prevent this we use cross vallidation:
+Dataset is split into k equal groups. Each group is refereed to as a fold.
+Some folds are used for training while others for testing, this is repeated until each fold has been 
+used for both training and testing. We then use the average resuts as the estimate of out of sample error
+
+from sklearn.model_selection import cross_val_score
+scores=cross_val_score(lr,x_data,y_data,cv=3) //lr=LinearRegression() cv is the no of partitions
+Returns an array of scores for each of the three folds used for testing
+np.mean(scores) //this is the rsquared value
+
+We can use negative squared error as a score by setting the parameter 'scoring' metric to 'neg_mean_squared_error'.
+-1 * cross_val_score(lre,x_data[['horsepower']], y_data,cv=4,scoring='neg_mean_squared_error')
+
+if we want to know the predicted values we use:
+from sklearn.model_selection import cross_val_predict
+yhat=cross_val_predict(lr,x_data,y_data,cv=3)
+
+Picking best polynomial model:
+When model is too simple to fit the data it is caled underfitting.
+When model does well at predcting the training points but no the function it is overfitting. Model fits the noise
+rather than the fn. It is too flexible
+test error is a better means of predicting the order of a polynomial
+
+TO test different order polynomials:
+Rsqu_test=[]
+order=[1,2,3,4]
+for n in order:
+	pr=PolynomialFeatures(degree=n)
+	x_train_pr=pr.fit_transform(x_train[[]])
+	x_test_pr=pr.fit_transform(x_test[[]]) //after uing a transform of certain degree you can use linear reg
+	lr.fit(x_train_pr,y_train)
+	Rsqu_test.append(lr.score(x_test_pr,y_test))
+
+Ridge Regression:
+Ridge regression is a regression that is employed in a Multiple regression model when Multicollinearity occurs. 
+Multicollinearity is when there is a strong relationship among the independent variables. Ridge regression is 
+very common with polynomial regression.
+Prevents overfitting.
+In many cases real data has outliers this may cause functions to be incorrect at estimating data.
+Polynomial coeff for these functions have very high magnitudes especially in highr order polynomials.
+Ridge regression controls the magnitude of these polynomial coeff by introducing the param alpha.
+It can be 0,0.001,0.01,1,10
+It is selected before we fit or train the model.
+As alpha increases the coeff get smaller.
+If alpha is too large the coeff will approach zero and underfit the dta.
+If alpha is zero there is overfitting.
+For selecting alpha we use crosss validation.
+
+from sklearn.linear_model import Ridge
+RidgeModel=Ridge(alpha=0.1)
+RidgeModel.fit(x,y)
+yhat=Ridgemodel.predict(X)
+We split data into training and validation data. validation data is used to select alpha
+Select value of alpha that maximizes thr R-square
+We can also use mse for selecting alpha
+
+Alpha is not used in fitting or training and is called a hyperparameter.
+Scikit learn has a means of automatically iterating over these hyperparameters using cross validation called 
+grid seaarch to find the best value for parameter.
+grid search takes the model to train and different values of hyperparameters. It calc mse or r-squared for
+different values
+
+
+
+from sklearn.linear_model import Ridge
+from sklearn.model_selection GridSearchCV
+parms=[{'alpha':[0.001,0.1,1,10,100,1000,10000],'normalize':[True,False]}]
+RR=Ridge()
+Grid1=GridSearchCV(RR,params,cv=4)
+Grid1.fit(x_data[[]],y_data)
+Grid1.best_estimator_ //returns best values for the free params
+scores=Grid1.cv_results_
+scores['mean_test_scores']

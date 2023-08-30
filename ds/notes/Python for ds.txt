@@ -1,0 +1,384 @@
+STRINGS:
+
+stride:
+
+string="Michael Jackson"
+string[::2] //select every second character //McalJcsn //first : is for slicing _:_ means all charactera
+string[:5:2] //every 2nd character upto 4 //Mca
+
+escape sequences: \n represents a new line.
+\t represents tab
+
+To put a backslash in a string use \\ or place an r before the string 
+eg:
+"Mich\\ael"
+r"Mich\ael"
+
+string.replace("Michael","Janet") // method replaces michael with janet and returns a new string
+
+TUPLES:
+We can concatenate tuples just like strings or lists. Slice and stride also works on tuples the same as on strings
+len(tup)//for length of a tuple
+
+to sort tuples:
+tup=(10,1,5,23,6,9,-1)
+sortedTup=sorted(tup) //returns a list which is sorted
+
+For the index of a value:
+tup.index("val")
+
+LISTS:
+we can concatenate lists by using +
+Another way is to use lst.extend(lst2)
+
+To nest a list inside one use append
+
+To remove element del(lst[0])
+if we do lst2=lst //both reference the same list. This is aliasing
+
+To clone a list lst2=lst[:]
+
+Dictionaries:
+To remove an entry
+del(DICT("key"))
+
+
+SETS:
+Sets are a type of collection so you can input different python types. They are unordered(do not record elem pos).
+Only unique elements.
+set={"a","b"}
+to convert a list to a set use set(lst)
+
+set.add("c") //to add an item to the set
+set.remove("c") //to remove an item from set
+
+a in set //returns true if a is an elem in the set and false otherwise
+
+set1 & set2 //intersection
+
+set1.union(set2) //union
+
+set2.issubset(set1) //check if set2 is a subset of set1 meaning all items of set2 are in set1
+set2.issuperset(set1)//check if set2 is a superset of set1. set2 contains all items of set1
+set1.difference(set2) //set1-set2
+
+RANGE:
+if range function function has two inputs and the first is smaller than the second the loop starts with first
+and ends at second-1
+range(10,15) //[10,11,12,13,14]
+
+ENUMERATE:
+squares=["red","yellow","green"]
+for i,square in enumerate(squares):
+	print(i,square) //prints both the index and value
+
+FUNCTIONS:
+veriadic parameters allow us to pass variable number of parameters to a function
+def print(*names): //takes as many params and converts all params into a list
+	for name in names:
+		print(name)
+print("a","b")
+print("a","b","c")
+
+def printDictionary(**args): //accepting dictionary
+    for key in args:
+        print(key + " : " + args[key])
+
+printDictionary(Country='Canada',Province='Ontario',City='Toronto')
+    
+
+You can also set default arg values in functions. If no value is passed the default value is assumed
+def my_func(a=4):
+
+GLOBAL:
+to make a global variable inside a functions write
+global var
+
+
+Exception Handling:
+try:
+	handle=open('text.txt','r')
+	handle.write("")
+except IOError:
+	print("Unable to openn file")
+except: //incase io error dose not occur but some other error occurs. Not good practice
+
+else://to give notif if no error occurs
+finally://to add the code to be executed a the end such as closing the file. Execute smth even if there is an 
+exception
+
+
+try:
+except (ZeroDivisionError, NameError): //list of errors to check for to run the exception
+
+OBJECTS AND CLASSES:
+An object is a self contained code and data
+
+All datatypes such as int, string etc are classes and have methods. When we make a variable we create an instance
+of these types
+
+class circle(object): //object always in parantheses
+	def __init__(self,radius,color)://to initialize instance with data attributes.Constructor.
+		self.radius=radius //sself refers tto the newly created instance of the class
+		self.color=color
+	def __del__(self):
+		
+
+circ=circle(10,"Red") //to create an object of the class
+circ.radius //to access attributes of the object use . notation
+
+METHODS:
+functions that change the data attributes of the object
+def add_radius(self,r)://create like a normal fn just inside a class. to call use object.fnName
+
+INHERITANCE:
+REusing an existing class and inherit all the capabilities of that and add some of our own code to make our
+new class. The new class is called a sub class
+
+class a:
+
+class b(a): //inherits all properties of a
+
+
+FILES:
+file1=open("",'r')
+file1.name //prints name of file
+file1.mode //prints what mode the file is open in
+
+if we use:
+with open("Ex1.txt",'r') as File1:
+	//indented code to read file
+when the block finishes file automatically closes. If you read file content inside indent it will be avail. outside
+too
+File1.read(5) //prints next5 chars
+File1.readlines() //outputs every line as an element in a list. We can also pass the number of chars to reaad as a
+param but it does not go past one line
+
+r+ : Reading and writing. Cannot truncate the file.
+w+ : Writing and reading. Truncates the file.
+a+ : Appending and Reading. Creates a new file, if none exists.
+
+with open('Example2.txt', 'a+') as testwritefile:
+    testwritefile.write("This is line E\n")
+    print(testwritefile.read())
+
+There were no errors but <code>read()</code> also did not output anything. This is because of our location in the file.
+Opening the file in w is akin to opening the .txt file, moving your cursor to the beginning of the text file, writing 
+new text and deleting everything that follows. Whereas opening the file in a is similiar to opening the .txt file, 
+moving your cursor to the very end and then adding the new pieces of text.It is often very useful to know where the
+'cursor' is in a file and be able to control it.
+.tell() - returns the current position in bytes
+.seek(offset,from) - changes the position by 'offset' bytes with respect to 'from'. From can take the value of 0,1,2 
+corresponding to beginning, relative to current position and end
+
+Finally, a note on the difference between w+ and r+. Both of these modes allow access to read and write methods, however, 
+opening a file in w+ overwrites it and deletes all pre-existing data.
+To work with a file on existing data, use r+ and a+. While using r+, it can be useful to add a .truncate() method at 
+the end of your data. This will reduce the file to your data and delete everything that follows.
+
+REading and writing to files notebook very good.
+
+APIs:
+An API lets two pieces of software talk to each other. Just like a function, you don't have to know how the API 
+works, only its inputs and outputs. An essential type of API is a REST API that allows you to access resources via 
+the internet.
+Rest API's function by sending a request, the request is communicated via HTTP message. The HTTP message usually 
+contains a JSON file. This contains instructions for what operation we would like the service or resource to perform.
+In a similar manner, API returns a response, via an HTTP message, this response is usually contained within a JSON.
+
+
+To convert alist of dictionaries which each have the same keys we can use this fn:
+def one_dict(list_dict):
+    keys=list_dict[0].keys()//getting all the keys in one dict. keys will be same for all dict
+    out_dict={key:[] for key in keys} //inserting all keys in dict
+    for dict_ in list_dict: //going through all the dictionaries
+        for key, value in dict_.items(): //iterating through one dictionary
+            out_dict[key].append(value) //appending the val in one diction in the main dict inside a list
+    return out_dict   
+
+There are several libraries for making http requests such as httplib, urllib, and requests.
+Here we will use requests library:
+import requests
+url='www.ibm.com.
+r=requests.get(url)
+r.status_code //to check status
+r.request.headers//headers
+r.request.body//main part of sent request
+r.headers //response headers.  returns a dictionary of headers
+r.text[:100] //to view first 100 chars
+
+To make a get request:
+url_get="httpbin.org/get"
+payload={"name":"Joseph","ID":"123"}
+r=requests.get(url_get,params=payload)
+r.text
+since content type is json, we use r.json() method to get back a dict
+r.json()['args']//to get payload
+
+TO make a post request:
+url_post="httpbin.org/post"
+payload={"name":"Joseph","ID":"123"}
+r=requests.post(url_post,data=payload) //data instead of params as in post req the content is sent as body
+r.json()['from'] //to get payload
+
+
+WEB SCRAPING:
+when getting data from url use .texxt
+data  = requests.get(url).text
+
+from bs4 import beautifulsoup
+soup=BeautifulSoup(html,'html5lib')
+print(soup.prettify())
+title=soup.title
+h3=soup.h3
+b=h3.b
+h3=b.parent
+p=h3.next_sibling
+b.attrs//to get attributes of bold tag returns an object
+b.string //for text content
+a=soup.find_all('a') //returns list of all anchor tags altrernate is soup('a')
+a['href']//same as below
+a.get('href') //to get href attr
+a.contents[0] //to get text
+table_bs.find_all(href=True)
+two_tables_bs.find("table",class_='pizza')
+
+Scrape data from HTML tables into a DataFrame using BeautifulSoup and read_html:
+Using the same url, data, soup, and tables object as in the last section we can use the read_html function to 
+create a DataFrame.
+
+Remember the table we need is located in tables[table_index]
+
+We can now use the pandas function read_html and give it the string version of the table as well as the flavor 
+which is the parsing engine bs4.
+
+pd.read_html(str(tables[5]), flavor='bs4')
+
+We can also use the read_html function to directly get DataFrames from a url.
+
+dataframe_list = pd.read_html(url, flavor='bs4')
+We can see there are 25 DataFrames just like when we used find_all on the soup object.
+
+len(dataframe_list)
+26
+Finally we can pick the DataFrame we need out of the list.
+
+dataframe_list[5]
+We can also use the match parameter to select the specific table we want. If the table contains a string matching 
+the text it will be read.
+
+
+
+READING FILEs:
+
+CSV:
+import pandas as pd
+df=pd.read_csv("example.csv"
+df.columns=['name','',''] //add colun names if not present in csv file
+
+JSON:
+Writing to JSON:
+json.dump() method can be used for writing to JSON file.
+
+Syntax: json.dump(dict, file_pointer)
+
+Parameters:
+dictionary – name of the dictionary which should be converted to JSON object.
+file pointer – pointer of the file opened in write or append mode.
+
+import json
+person = {
+    'first_name' : 'Mark',
+    'last_name' : 'abc',
+    'age' : 27,
+    'address': {
+        "streetAddress": "21 2nd Street",
+        "city": "New York",
+        "state": "NY",
+        "postalCode": "10021-3100"
+    }
+}
+
+with open('person.json', 'w') as f:  # writing JSON object
+    json.dump(person, f)
+
+serialization using dumps() function:
+json.dumps() that helps in converting a dictionary to a JSON object.
+
+It takes two parameters:
+
+dictionary – name of the dictionary which should be converted to JSON object.
+indent – defines the number of units for indentation
+
+json_object = json.dumps(person, indent = 4) 
+  
+# Writing to sample.json 
+with open("sample.json", "w") as outfile: 
+    outfile.write(json_object)
+
+Reading JSON:
+import JSON
+with open('f.json','r') as file:
+	dic=json.load(file)
+
+XML:
+
+Writing to XML:
+import xml.etree.ElementTree as ET
+
+# create the file structure
+employee = ET.Element('employee')
+details = ET.SubElement(employee, 'details')
+first = ET.SubElement(details, 'firstname')
+second = ET.SubElement(details, 'lastname')
+third = ET.SubElement(details, 'age')
+first.text = 'Shiv'
+second.text = 'Mishra'
+third.text = '23'
+
+# create a new XML file with the results
+mydata1 = ET.ElementTree(employee)
+# myfile = open("items2.xml", "wb")
+# myfile.write(mydata)
+with open("new_sample.xml", "wb") as files:
+    mydata1.write(files)
+
+REading from XML:
+
+import pandas as pd
+import xml.etree.ElementTree as etree
+tree=etree.parse('file.xml')
+root=tree.getroot()
+columns=['name','num']
+df=pd.datafram(columns=columns)
+for node in root:
+	name=node.find('name').text
+	num=node.find("number").text
+	df=df.append(pd.series([name,num],index=columns),ignore_index=True)
+
+
+Reading xml file using pandas.read_xml function
+We can also read the downloaded xml file using the read_xml function present 
+in the pandas library which returns a Dataframe object.
+
+df=pd.read_xml("Sample-employee-XML-file.xml", xpath="/employees/details")
+
+
+| Data Formate |        Read       |            Save |
+| ------------ | :---------------: | --------------: |
+| csv          |  `pd.read_csv()`  |   `df.to_csv()` |
+| json         |  `pd.read_json()` |  `df.to_json()` |
+| excel        | `pd.read_excel()` | `df.to_excel()` |
+| hdf          |  `pd.read_hdf()`  |   `df.to_hdf()` |
+| sql          |  `pd.read_sql()`  |   `df.to_sql()` |
+| ...          |        ...        |             ... |
+
+Binary File Format
+"Binary" files are any files where the format isn't made up of readable characters. It contain formatting 
+information that only certain applications or processors can understand. While humans can read text files, 
+binary files must be run on the appropriate software or processor before humans can read them.
+
+Binary files can range from image files like JPEGs or GIFs, audio files like MP3s or binary document formats 
+like Word or PDF.
+PIL is the Python Imaging Library which provides the python interpreter with image editing capabilities.
+See the files notebook

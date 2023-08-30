@@ -1,0 +1,382 @@
+Data science reports:
+Cover page,Table of contents,Executive Summary,Introductory section,Methodology section,Results section,Discussion, 
+section,Conclusion section,References,Acknowledgment
+
+Data science categories:
+1-Data mangement:collecting and retrieving data securely efficiently and cost effectively, and storing it
+2-Data Integration and transformation:Extracting transforming and loading data. Data base may be in databases, cubes or
+flat files, so it is extracted and saved to a data warehouse. Transformation is the process of transforming the values
+structure and format of data. This is then loaded back to the warehouse
+3-Data Visualisation: Graphical representation of data and information to conver it to decision mkers more effectively
+4-Model Building: Train the ddat and analyze patterns using suitable ml algorithms. This model can then be used to 
+make decisions on new unseen data. Can be done using IBM watson machine learning
+5-Model deployment: integrating a developed model innto a production env. made available to third party applications 
+using apis. SPSS collab and deployment services can be used to deploy models created by spss software tools suite
+6-Model Monnitoring and assessment: continuous tests to ensure accuracy, fairness and robustness. tools like fiddler
+Assesment uses evaluation metrics like f1 score, true positive rate, or sum of squared error to understand perf.
+Ibm watson open scale is pop model monit. and assessment tool
+
+Code asset management provides a unified view where you can manage an inventory of assets. vc comes under asset 
+manag. you may need to update model, fix bugs or improve code features for this you use version management
+Tool like github.
+
+you also want to properly store and organise all your images videos texts and other data in central loc.
+you also want control over who can access edit and manage your data. This is data asset management. Done on dam 
+platform that allows versioning and collab. DAM platforms also support replication, backup and access right manag.
+for the data.
+
+Development environments IDEs  provide a workspace and tools to work on source code. For eg IBM watson studio 
+provides tessting and simulation tools to emulatw the real world soyou can see how your code will behave after 
+deployment.
+
+An  execution environment has libraries to compile the source code and system resources that execute and verify the
+code. these are cloud based exec env. which offer tools like IBM watson studio.
+
+Fully integrated visual tools like ibm watson studio and ibm cognos dashboard embedded cover all tooling components
+
+Open source Tools:
+1-Data mangement: 
+Relational:MySQL and PostGreSQL 
+non-Relational:MongoDB, ApacheCouchDB, Apache Cassandra 
+File-based: Hadoop file system, Ceph(cloud file systems)
+elastic search tool:elasticsearch(stores text data and fast doc retrieval)
+
+2-Data Integration and transformation:Apache Airflow, kubeflow, Apache kafka, Apache Nifi(visual editor), 
+Apache spark SQL, NodeREd(visual editor)
+3-Data Visualisation: PixieDust, Hue(visualisations from sql queries), Apache Superset
+4-Model Building: Jupyter notebooks,Jupyter labs, Apache Zeppelin, Rstudio,spyder(similar to Rstudio)
+5-Model deployment: Apache PrdictionIO, seldon, mleap, tensorflow service
+6-Model Monnitoring and assessment: ModelDB,Prometheus, IBM AI fairness 360, IBM adverserial robustness360, IBM 
+ai explainability360 
+
+Execution environments:Apache spark, Apache flink
+Data Asset management: Apache atlas
+
+Commercial tools:
+
+1-Data mangement:oracle, Microsoft SQL, IBM DB2
+2-Data Integration and transformation:Informatica, IBM infosphere datastage, sap , oracle, talend
+3-Data Visualisation:tableau,power BI, IBM cognos analytics
+4-Model Building: spss, sas
+5-Model deployment:-
+6-Model Monnitoring and assessment:-
+
+Execution environments: watson studio
+Data Asset management or data governance: informatica, and ibm
+
+
+cloud based tools:
+have multiple tasks integrated in tools.other than data management, model monitoring and assessment and code 
+asset management
+Watson sudio and watson openscale, Microsoft Azure, H2o driverless ai
+software as a service(saas) versions of opensource and commercial tools exist in the cloud: 
+Amazon webservices dynamoDB, allows storage and retieving data in key value or document store format
+Cloudant
+IBM db2
+
+Data integration and transformation: INformatica or ibm data refinery
+Model Building: Ibm watson ml, google cloud
+
+Languages for data science:
+python, R, SQL, Scala, Java, C++,Julia, Javascript, PHP, Ruby, Go, Visual basic
+Depends on the things you need to accomplish
+
+Python: Most widely used
+Has tools for databases, Automation, Web scraping, Text processing, Image proc., ML, and data science
+libraries: Pandas, NumPy, seaborn, matplotlib, scipy, scikit learn, keras, pytorch, tensorflow, natural language 
+toolkit
+Scientific computing libraries: Pandas(Data structures and tools for cleaning manip. and analysis) built on top of 
+numpy,Numpy(arrays,and matrices)
+visualisation libraries:matplotlib(plots and graphs), seaborn(heat maps, timeseries, violin plots) 
+ml and deeplearning high level:scikit-Learn(regression, classification and clustering), keras(deep learning models) 
+ml and dl low level:tensorFlow(deeplearning), Pytorch(for experimentation in reg. and classification)
+
+Apache spark has similar functionality to pandas Numpy and scikit learn
+
+R:used for developing statistical software, graphing, and data analysis, and machine learning
+supports importing data from flat files, databases web and statistical software
+Easy compared to others for ds. great tools for visualisation. Basic analysis dosent require installing packages
+Largest repository of statistical knowledge. Integrates well with other languages. Strong object oriented 
+programming facilities.
+ggplot2 (vis.). Libraries to interface with keras and tensorflow.
+IDE: Rstudio
+libraries: dplyr(data manip.), stringr(manip strings), ggplot2 (vis.), caret(ML)
+
+
+SQL: limited to querying and managing data
+
+Java: fast and scalable
+Java-ML(ml library),  DeepLearning4, Hadoop
+
+Scala: Made to overcome short comings of java. interoperable with java. Apache spark built with scala.
+used in data engineering and science. Vegas for visualisations Big Dl for deeplearning
+
+C++: tensorflow built in C++, MongoDB built using C++
+
+JS: tensorflow.js makes ml and deeplearning possible in Node.js and browser. bain.js, machinelearn.js R-JS
+
+API: allows communication bw two pieces of software.  For eg pandas is not completely written in python.
+You use pandas api to process the data by communicating with other software components. Api is the part of the
+library you see while library contains all components
+Tensorflow written in C++ can use API to communicate with pyhon, JS, C++
+Rest Api allow you to communicate through the internet. The api communicates with a webservice throught he internet
+Client sends a req and recieves a response. Data transmitted using HTTP methods. Request sent using an HTTP message 
+containing JSON file. File contains informaton about what operation is to be performed by webservice.
+Response is returned using JSON file. for eg Watson Tex to speech api,
+
+Data Sets:
+Structured collection of data.
+Tabular data set comprises a collection of rows containing columns that store the info. Popular data format includes 
+csv(comma separated values) 
+Hierarchical or network data structures are typically used to represent relationships. Hierachical data is 
+organised in a tree like format while network data is organised as a graph.
+Raw files such as images or audio
+Open data portals are listed at datacatalogs.org
+kaggle is a data science community with datasets
+IBM data asset exchange has ibm and 3rd party data sets. It also contains notebooks for these data sets for cleaning,
+preprocessing and exploratry analysis
+
+Machine Learning Models:
+Machine learning models are used to identify patterns in data
+Model training is the process by which model learns the data patterns 
+After training it can be used to make predictions
+Three classes of ML models: supervised, unsupervised, and Reinforcement learning models
+
+Supervised learning:
+Most commonly used. Human provides input data and correct outputs. Model identifies relationships and dep. bw
+input and correct output. two types of models: regression and classification.
+Regression: used to predict real numerical values (home sale prices, or market prices) 
+classification: to classify data into categories (email spam filters, fraud detection, image class.) used to predict 
+a target var with two classes
+
+Unsupervised learning:
+Data not labelled by a human. Model tries to identify patterns without external help based on characteristics
+clustering: divides each record into one of a similar group (purchase rec. anomaly detection identifying outliers in
+dataset such as fraudulent credit card trans.
+
+Reinforcement learning: similar to human learning process. Model learns the best set of actions to take to get the most rewards 
+overtime
+
+Deeplearning:
+Specialized type of machine learning. loosely emulate the way huan brain works
+NLP, Image audio and video analysis, Time series forecasting
+Requires large datasets of labelled data to train models
+Implemented using pytorch tensorflow and keras
+model Asset exchange by ibm contains pretrained customizable deep learning models.
+Pre or customm trainable dl models. can be deployed in minutes. available as model serving microservice
+
+mmodel serving microservice:
+pre trainied model, code to pre process input, code to post process output, Api to connect to apps
+MAX model serving ms are built aand distributed as docker images. Docker is container used to build and deploy apps.
+kubernetes is used to automate deployment scaling and management of these docker images. Red hat openShift is a 
+kubernetes platform
+
+JUPYTER NOTEBOOK:
+
+markdowns:
+To create a heading write # text
+the no of # indicate level of heading
+
+for bold text add two __ or two ** before and fter the text
+for italic use single _ or * before and after text
+for both use triple *** or ___
+
+for a link
+[Skills Network](https://skills.network/) 
+
+for image
+Name: ![alt text](path)
+
+for table:
+| Country Name | Capital |
+| -------------| ------ |
+| United States | Washington DC |
+| Australia | Canberra |
+| India | New Delhi |
+
+You can create an unordered list by adding dashes (-), asterisks (*), or plus signs (+) in front of line items.
+- First item using dashes
+- Second item using dashes
+- Third item using dashes
+- Fourth item using dashes
+
+* First item using asterisks
+* Second item using asterisks
+* Third item using asterisks
+* Fourth item using asterisks
+
++ First item using plus
++ Second item using plus
++ Third item using plus
++ Fourth item using plus
+
+We can create an ordered list by adding line items with numbers followed by periods.:
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+
+ANACONDA:
+free and open source distributor for python and R
+
+Jupyter can be used in anaconda and vs code both
+
+cloud based Jupyter env:
+JupyterLite(jupyter.org/try-jupyter/lab/), google colabs(accessed from drive)
+check week 4 for anaconda installation and setup and for vscode download jupyet extension 
+and in new file select jupyter notebook
+week 5 for R and Rstudio installation and working
+
+git is used for version control of jupyter notebooks
+
+IBM WATSON STUDIO:
+creat pojects to organize data connections, data assets and jupyter notebooks, upload files, and clean and shape
+data for analysis. Create and share data vis. without any code. Watson knowledge catalog has data sets.
+Watson ml offers tools and services to build train and deploy ml models.
+Cloud pak for data is a secure platform that offers a single view of the data no matter how many sources you
+are working with
+Week 7 of course 2 to see how this works
+
+Data Science Methodolgy:
+The following approach was introduced by John Rollins 
+
+From problem to approach:
+1- What is the problem you are trying to solve
+2- How can you use data to answer the question
+
+Working with the data:
+3- What data do you need to answer the question
+4- Where is the data coming from and how will you get it
+5- is the collected data representative of the problem to be solved
+6- What additional work is required to manip. and work with the data
+
+Deriving the answer:
+7- In what ways can the data be visalised to get the req answer
+8- Does the model used really answer the original question or does it need to bbe adjusted
+9- can you pyt the model into practice
+10- Can you get constructive feedback into answering the ques
+
+There are other approaches too. for eg in data mining the cross industry process for data mining(Crisp-DM) is 
+widely used.
+
+Business Understanding:
+Spending time to seek clarification and attain business understanding. Question might arise after the original 
+meeting and it is important not to continue until after clarification. 
+Have a clearly define question about what you are trying to solve
+To define question you need to understand goal of the person asking it. 
+Next step is to break down objectives in support of the goal. Structured discussions to identify priorities.
+
+
+Analytic Approach:
+depends on question being asked.How to use data to answer the question. Done in context of the business req.
+
+Descriptive:
+Current status.
+
+diagnostic(stats analysis):
+what happened and why
+
+Predictive(forecasting):
+what if these trends continue. What will happen next.
+
+Prescriptive:
+how to solve it.
+
+If question is to determine probabilities of outcome use predictive model.
+If question is to show relationships use descriptive model. Look at clusters of similar activities based on events
+and preferences
+if question requires yes/no answer use a classification model.
+
+ML is used to identify rel. and trends in data that might otherwise not be accessible or identified.
+
+Decision trees: part of classification
+Decision trees are built using recursive partitioning to classify the data.
+When partitioning the data, decision trees use the most predictive feature (ingredient in this case) to split the data.
+Predictiveness is based on decrease in entropy - gain in information, or impurity.
+
+A tree stops growing at a node when:
+Pure or nearly pure.
+No remaining variables on which to further subset the data.
+The tree has grown to a preselected size limit.
+
+Data Requirements:
+It is vital to decide the data reqs based on the aprroach used. It is necessary to decide the data content, formats
+and sources.
+
+Data collection:
+After data collection, assessment is performed by data scientists to determine if they have what they need.
+Data requirements might be revised if some data cannot be obtained. Descriptive stats and vis can be applied to 
+assess the content and quality of the data. Gaps in data are identified and plans to fill or make substitutions
+are made.
+Decisions about unavilable data can be deferred.
+Format is determined by the model to be used
+
+Data understanding:
+Encompasses all activities related to constructing the data set.
+It answers whether the collected data is representative of the problem to be solved
+Descriptive stats might be run against the columns to be used in the model. such as univariate stats, pairwise
+correlations. Histogram.
+If two variables are very highly correlated they would be redundant only one relevant for modeling.
+Histograms of variables to understand their distributions.
+For categorical variables with too many distinct values to be informative, histograms might help decide how to 
+consolidate the values.
+These are also used to assess data qullity and identify missing or invalid or misleading values.
+Some variables might need to be dropped or recoded due to missing values.
+Sometimes missing might mean no or zero or sometimes that we dont know
+
+Data preparation:
+Getting data into a state where it may be easier to work with.
+Address missing or invalid values. Remove duplicates. Proper formating.
+Involves feature eng. which is using domain knowloedge to create features  that make ml algo work. Critical when ml
+tools are being applied to analyze data.
+When working with text. Text analysis steps fro coding the data are req to be able to manip the data.
+Text analysis is critical to ensure that the proper groupings are set and program is not overlooking what is hidden
+within. Aggregation may need to be done to create new columns in a record.
+Literature review is done to make sure all the data is there. if not data will need to be collected.
+Data will need to be divided into training and testing sets.
+
+Modelling:
+In what way can the data be visualised to get the req answer.
+Modeling focuses on developing models that are either descriptive or predictive.
+In descriptive ex is if a person did this then they would prefer that.
+In predictive model tries to yeild yes or no answers. 
+Based on the analytical approach taken. Either statistical or ml driven
+model evaluation, deployment and feedback ensure the answer is near and relevant
+
+Evaluation:
+evaluation goes hand in hand with model building
+allows quality of model to be assessed but also an opp to see if it meets the initial request.
+
+Two steps:
+
+1-first is diagnostic measures phase:
+If model is predictive decision tree can be used to evaluate if the answer the model can output is aligned to initail 
+design.
+If model is a decruptive model one in which rel are being assessed then a testing set with known outcomes can
+be applied and model can be refined as needed
+
+2-Stat. sig testing:
+To ensure data is being properly handled and interpreted within the model.
+
+ROC curve which compares true + rate vs false + rate is used as diagnostic tool in determining the optimal classif.
+It quantifies how well a binary classif. model performs
+
+Deployment:
+Once the model is tested it is deployed and made available to the stakeholders.
+
+Feedback:
+feedback from the users will help to refine the model and assess it for performance and impact
+value of the model is dependent on successfully incorporating feedback and making adjustments for as long as 
+the solution is req
+
+Data Engineering
+Data engineering is one of the most critical and foundational skills in any data scientist’s toolkit.
+
+Data Engineering Process
+There are several steps in Data Engineering process.
+
+Extract - Data extraction is getting data from multiple sources. Ex. Data extraction from a website using Web scraping or gathering information from the data that are stored in different formats(JSON, CSV, XLSX etc.).
+
+Transform - Transforming the data means removing the data that we don't need for further analysis and converting the data in the format that all the data from the multiple sources is in the same format.
+
+Load - Loading the data inside a data warehouse. Data warehouse essentially contains large volumes of data that are accessed to gather insights.

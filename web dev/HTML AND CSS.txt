@@ -1,0 +1,156 @@
+table:
+<table>
+<tr>
+<th></th> //table header tag
+</tr>
+<tr>//table row tags
+<td></td>//table data tags
+</tr> 
+</table>
+
+css selectors:
+element, id ,class selctors.
+element with class selector:
+<p class="intro">
+p.intro{}
+
+descendant selector:
+div h1{} //selects all h1 inside divs
+
+child selector:
+div>h1{} //only selects h1 which is a direct descendant of this div
+
+text decoration:
+text-decoration: underline red solid 5px;
+OR
+text-decoration-line: underline;
+  text-decoration-color: red;
+  text-decoration-style: solid;
+  text-decoration-thickness: 5px;
+
+The most common text-decoration-line values used are: underline, overline, line-through and none. 
+None is the default value to use no text decoration.
+
+There are many styles available for the text-decoration-style  property;  solid,  double,  dotted,  dashed  
+and  wavy. The text-decoration-style property requires the decoration line to be defined. If the decoration 
+style is not specified, solid will be used.
+
+If you set box-sizing: border-box; on an element, padding and border are included in the width and height
+
+HTML Element Left / Right Alignment
+
+The two most common ways to left and right align elements are to use the float property and the position property.
+
+The position property has several value options that impact how the element displays in the document flow. 
+You'll explore how to use the position property later on. For now, let's focus on the float property.
+The float property sets an element's position relative to the text content within a parent element. 
+Text will wrap around the element.
+
+LIBRARIES:
+libraries and frameworks are called dependencies bcs the application depends on them
+bootstrap is a famous library.
+Your dependency usually depends on a lot of other libraries so it can be hard to download and configure
+hundreds of dependencies. That is why a package manager such as npm or yarn is generally used to automatically
+download and install dep. It downloads the entire dependency tree.
+
+It can be hard to include all the dependencies in html so a bundling tool is used. Gulp and webpack are examples
+
+
+Responsive design:
+1-Flexible grids-use perccentages
+2-Fluid Images-setting ma width to 100%
+3-Media Queries
+
+USING BOOTSTRAP:
+the first element needed is the div with class container for any bootstrap grid. You can put a div with 
+class row and then inside that a div with class col to use a grid. The bootstrap grid uses 12 breakpoints.
+to use breakpoints use class col-2. If there were two classes one col-4 and other col-8. First one will take up 
+1/3 and second 2/3 of the screen.
+
+to maake it responsive use col-12 for mobile and col-lg-6 for desktop.
+
+img-fluid class ensures the image has the same width as parent element and scales down but not up
+table class is used with tables
+
+Bootstrap has class infixes for several sizes. The default is extra small since bootstrap is for mobile first 
+design.
+extra small <576px(default)
+sm >=576px
+md >=768px
+lg >=992px
+xl >=1200px
+xxl >=1400px
+
+we have to insert these infixes into classes
+
+Modifiers available in bootstrap are:primary,secondary,success,info,warning,danger,light,dark
+
+<div class="col=lg-6"> //6 column css class
+
+<div class="alert alert-primary" role="alert"> //to send alert message
+
+<div class="text-center">//to center content inside a div
+
+Bootstrap components:
+Buttons,alerts, badges.
+<span class="badge bg-primary">text</span>
+<div class="card"> //inside col div
+for image inside card use class=card-img-top
+for text inside card add <div class="card-body>
+on heading add class="card-title"
+on p add class="card-text"
+
+Switches
+If you've used an app on your mobile device, you're probably familiar with the switch input type.
+
+Bootstrap Doc Switches
+Bootstrap includes CSS rules to style checkbox input elements as switches. 
+
+To do this:
+Add the input to a div element. 
+On the div element, apply the form-check and form-switch CSS classes. 
+On the input element, add the form-check-input CSS class.
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox">
+</div>
+
+Other css libraries:
+Foundation:
+Foundation is a framework for building user interfaces similar to Bootstrap. It is used by many large companies 
+such as Pixar, Polar and Sonos. One prominent feature of Foundation is that it can be used to style content for 
+sending via email.
+
+Pure.css:
+Pure.css is another library for building user interfaces. While it doesn't have as many features as Bootstrap, 
+it is designed to be minimal in file size. Smaller file sizes improve loading times for web pages as there is 
+less data to transfer from the web server. If your next project is focused on minimal loading time, this library 
+is worth considering.
+
+Tailwind CSS:
+Tailwind CSS is a CSS framework that uses a utility-based approach for its CSS rules. This means that the 
+framework provides many CSS classes with a single purpose. For example, the CSS class pt-6 sets the padding-top
+CSS property to 6 pixels. This means that you can be precise in applying styling to your HTML without writing CSS.
+
+UIKit:
+UIKit is a lightweight CSS framework featuring a small set of responsive components. Its simple design allows 
+developers to easily customize the style rules and visuals.
+
+MVP.css:
+MVP.css is a small CSS library that automatically styles HTML elements without needing to apply CSS classes to 
+them. The library aims to allow a developer to quickly prototype a user interface without worrying about the 
+final design, while still being visually appealing.
+
+
+STATIC AND DYNAMIC CONTENT:
+web server communicates with application server which generates dynamic content based on user inut or current 
+dat etc.
+This requires too much processing so web server holds dynamic content in cache and if request is same it serves
+content otherwise asks app. server to generate new content.
+
+SINGLE PAGE APPLICATIONS;
+only one html page that gets sent from server to browser. The page updates as users interact with website.
+Rewrites current page.
+two approaches to serving code and res.
+1-Bundling-When browser requests the application the server returns and loads all necessary html css and js.
+If website is compplex can take a long time to download
+2-Lazy loading or code splitting-Server returns only the minimum code.
